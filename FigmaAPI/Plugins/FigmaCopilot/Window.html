@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Documentation Generator</title>
+</head>
+<body>
+    <button id="generate-doc">Generate Documentation</button>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("generate-doc").onclick = () => {
+            parent.postMessage({ pluginMessage: { type: "generate-documentation" } }, "*");
+        };
+
+        onmessage = (event) => {
+            const { type, documentation } = event.data.pluginMessage;
+            if (type === "documentation") {
+                document.getElementById("result").innerText = documentation;
+            }
+        };
+    </script>
+</body>
+</html>
