@@ -23,7 +23,7 @@ Algorithm
 
 
 Example Code
-
+```
 // Initialize Plugin and Create a Frame
 const frame = figma.createFrame();
 frame.resize(400, 600);
@@ -51,7 +51,7 @@ cardComponent.appendChild(descriptionText);
 // Add Component to Frame
 frame.appendChild(cardComponent);
 figma.currentPage.appendChild(frame);
-
+```
 2. Create Components Automatically
 
 Creating reusable components programmatically is essential for automation. You can generate a button component that can be reused throughout a design.
@@ -69,7 +69,7 @@ Algorithm
 
 
 Example Code
-
+```
 // Create Button Component
 const buttonComponent = figma.createComponent();
 buttonComponent.resize(100, 40);
@@ -93,7 +93,7 @@ buttonText.y = buttonBackground.height / 2 - buttonText.height / 2;
 
 // Add Component to the Page
 figma.currentPage.appendChild(buttonComponent);
-
+```
 3. Define Variables and Apply Styles
 
 Defining variables allows for consistent design updates across the document. Variables could include color, spacing, or typography values.
@@ -111,7 +111,7 @@ Algorithm
 
 
 Example Code
-
+```
 // Define Color Variable
 const colorVariable = figma.createPaintStyle();
 colorVariable.name = "Primary Color";
@@ -119,7 +119,7 @@ colorVariable.paints = [{ type: 'SOLID', color: { r: 0, g: 0.5, b: 1 } }];
 
 // Apply Variable to Element
 buttonBackground.fillStyleId = colorVariable.id;
-
+```
 4. Automate Prototyping Links
 
 Automating prototyping links allows navigation between components, such as linking a button to another frame.
@@ -137,7 +137,7 @@ Algorithm
 
 
 Example Code
-
+```
 // Assume buttonComponent is linked to another frame named targetFrame
 const targetFrame = figma.createFrame();
 targetFrame.name = "Target Frame";
@@ -146,7 +146,7 @@ figma.currentPage.appendChild(targetFrame);
 // Set Prototype Interaction
 buttonComponent.setPluginData("link", targetFrame.id);
 buttonComponent.setPluginData("transition", "INSTANT");
-
+```
 5. Generate Diagrams or Flowcharts
 
 For creating flowcharts or diagrams, you can generate shapes and connect them with lines programmatically.
@@ -164,7 +164,7 @@ Algorithm
 
 
 Example Code
-
+```
 // Create Nodes
 const nodeA = figma.createEllipse();
 nodeA.resize(100, 100);
@@ -196,7 +196,7 @@ connector.vectorNetwork.vertices[1].x = nodeB.x + nodeB.width / 2;
 connector.vectorNetwork.vertices[1].y = nodeB.y + nodeB.height / 2;
 
 figma.currentPage.appendChild(connector);
-
+```
 Bringing it All Together
 
 You can combine these techniques into a single plugin to create automated designs that generate reusable components, apply styles, create interactions, and generate flow diagrams. This process lets you build sophisticated UI systems programmatically, useful for scaling design systems or generating prototypes rapidly.
