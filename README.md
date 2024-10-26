@@ -1,4 +1,4 @@
-# DevEx
+# 🧩DevEx
 My JSON asset store for automating workflow with Figma.
 
 Process into a sequence of steps with algorithms and example code snippets to guide you.
