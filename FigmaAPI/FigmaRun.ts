@@ -1,9 +1,3 @@
-Вот пример кода, который можно использовать с Figma API для автоматизированного создания элементов в документе:
-
-Пример кода для создания документа Figma с помощью Figma API
-
-Этот код создаст базовые элементы, такие как фреймы, текст и кнопки, и расположит их на разных страницах. Такой скрипт может быть написан на JavaScript и отправлен в API Figma через HTTP-запросы:
-```
 const axios = require('axios');
 
 // Figma API токен и ID файла
@@ -52,7 +46,6 @@ async function createFrames() {
         height: 1024,
       },
     ];
-
     const promises = framesData.map(async (frame) => {
       return axios.post(
         `https://api.figma.com/v1/files/${FILE_ID}/nodes`,
@@ -68,7 +61,6 @@ async function createFrames() {
         config
       );
     });
-
     await Promise.all(promises);
     console.log('Frames created successfully!');
   } catch (error) {
@@ -104,4 +96,3 @@ async function addTextToFrame(frameId, textContent) {
 createFrames()
   .then(() => addTextToFrame('0:1', 'Welcome to the Home Page'))
   .catch((error) => console.error('Error:', error));
-```
