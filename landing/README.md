@@ -25,6 +25,28 @@ npm run lint
 | `lib/shift.ts` | данные демо-смены и логика: автораспределение, ETA, KPI |
 | `components/lead-form.tsx` | форма заявки: валидация, состояние загрузки, успех, ошибка |
 | `app/api/lead/route.ts` | мок-эндпоинт заявки |
+| `promo/render.mjs` | сборка промо-креативов под VK, Telegram, Яндекс и ОК |
+
+## Промо-креативы
+
+Креативы собираются кодом, чтобы текст оставался редактируемым, а типографика — фирменной:
+
+```bash
+npm run promo                # рендерит PNG в promo/out
+CHROME_PATH=/path/to/chrome npm run promo
+```
+
+Форматы: 1080×1080 (VK, ОК), 1080×1920 (VK Клипы, сторис), 1080×607 (Яндекс РСЯ), 1280×720
+(пост в Telegram), 600×600 (тизер ОК).
+
+## Деплой
+
+Vercel, Root Directory проекта — `landing`:
+
+```bash
+npx vercel link       # выбрать/создать проект, Root Directory = landing
+npx vercel --prod
+```
 
 ## Проверка сценариев
 
