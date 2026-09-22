@@ -30,8 +30,8 @@ export const COURIER_TYPE_LABEL: Record<CourierType, string> = {
 
 const SPEED_KMH: Record<CourierType, number> = {
   foot: 5,
-  bike: 15,
-  car: 28,
+  bike: 16,
+  car: 30,
 };
 
 /** Максимальная дистанция, на которую имеет смысл отправлять курьера этого типа. */
@@ -41,8 +41,8 @@ const MAX_DISTANCE_KM: Record<CourierType, number> = {
   car: 99,
 };
 
-/** Обещание гостю: доставка за 45 минут с момента заказа. */
-export const PROMISE_MIN = 45;
+/** Обещание гостю: доставка за час с момента заказа. */
+export const PROMISE_MIN = 60;
 
 /** Время, которое теряет диспетчер на ручной поиск курьера и звонок. */
 export const DISPATCH_PENALTY_MIN = 7;
@@ -223,8 +223,14 @@ export type Assignment = {
 
 export type ShiftResult = {
   assignments: Assignment[];
+  /** Заказы, до которых диспетчер ещё не дошёл: время посчитано по прогнозу. */
+  projected: Assignment[];
+  /** Заказы, которые некому отдать: нет курьера подходящего типа. */
   unassignedIds: string[];
 };
+
+/** Позже этого времени гость уже отменяет заказ, а не ждёт компенсацию. */
+const CANCEL_MIN = 75;
 
 function etaFor(order: Order, courier: Courier, penaltyMin: number) {
   const pickupAt = Math.max(order.readyInMin, courier.freeInMin + penaltyMin);
@@ -278,10 +284,13 @@ export function autoAssign(
     best.freeInMin = bestEta + Math.round(travelMin(order.distanceKm, best.type) * 0.6);
   }
 
-  return { assignments, unassignedIds };
+  return { assignments, projected: [], unassignedIds };
 }
 
-/** Ручная смена: считаем то, что диспетчер уже назначил, плюс потеря времени на звонки. */
+/**
+ * Ручная смена: заказы, которые диспетчер уже назначил, плюс прогноз по остальным —
+ * он дойдёт до них по одному, теряя время на звонки, и отдаст первому освободившемуся курьеру.
+ */
 export function manualAssign(
   orders: Order[],
   couriers: Courier[],
@@ -289,29 +298,52 @@ export function manualAssign(
 ): ShiftResult {
   const pool = couriers.map((c) => ({ ...c }));
   const assignments: Assignment[] = [];
-  const unassignedIds: string[] = [];
+  const projected: Assignment[] = [];
+  const queue: Order[] = [];
 
-  for (const order of orders) {
-    const courierId = picks[order.id];
-    const courier = courierId ? pool.find((c) => c.id === courierId) : undefined;
-    if (!courier) {
-      unassignedIds.push(order.id);
-      continue;
-    }
-    const eta = etaFor(order, courier, DISPATCH_PENALTY_MIN);
+  const record = (order: Order, courier: Courier, eta: number) => {
     const totalMin = order.placedMinAgo + eta;
-    assignments.push({
+    courier.freeInMin = eta + Math.round(travelMin(order.distanceKm, courier.type) * 0.6);
+    return {
       orderId: order.id,
       courierId: courier.id,
       etaMin: eta,
       totalMin,
       late: totalMin > PROMISE_MIN,
-    });
-    courier.freeInMin =
-      eta + Math.round(travelMin(order.distanceKm, courier.type) * 0.6);
+    };
+  };
+
+  for (const order of orders) {
+    const courierId = picks[order.id];
+    const courier = courierId ? pool.find((c) => c.id === courierId) : undefined;
+    if (!courier) {
+      queue.push(order);
+      continue;
+    }
+    assignments.push(record(order, courier, etaFor(order, courier, DISPATCH_PENALTY_MIN)));
   }
 
-  return { assignments, unassignedIds };
+  if (pool.length === 0) {
+    return { assignments, projected, unassignedIds: queue.map((o) => o.id) };
+  }
+
+  queue
+    .sort((a, b) => b.placedMinAgo - a.placedMinAgo)
+    .forEach((order, index) => {
+      // Диспетчер разбирает очередь по одному заказу, каждый звонок отодвигает следующий.
+      const dispatcherFreeAt = DISPATCH_PENALTY_MIN * (index + 1);
+      const courier = pool.reduce((a, b) => (a.freeInMin <= b.freeInMin ? a : b));
+      const pickupAt = Math.max(order.readyInMin, courier.freeInMin, dispatcherFreeAt);
+      projected.push(
+        record(
+          order,
+          courier,
+          pickupAt + travelMin(order.distanceKm, courier.type) + HANDOFF_MIN,
+        ),
+      );
+    });
+
+  return { assignments, projected, unassignedIds: [] };
 }
 
 export type Kpi = {
@@ -323,31 +355,28 @@ export type Kpi = {
 };
 
 export function computeKpi(orders: Order[], result: ShiftResult, couriersOnShift: number): Kpi {
-  const { assignments, unassignedIds } = result;
-  const delivered = assignments.length;
-  const avgDelivery = delivered
-    ? Math.round(assignments.reduce((acc, a) => acc + a.totalMin, 0) / delivered)
+  const { assignments, projected, unassignedIds } = result;
+  const all = [...assignments, ...projected];
+  const avgDelivery = all.length
+    ? Math.round(all.reduce((acc, a) => acc + a.totalMin, 0) / all.length)
     : 0;
-  const lateCount = assignments.filter((a) => a.late).length + unassignedIds.length;
-  const lostRub = orders
-    .filter(
-      (o) =>
-        unassignedIds.includes(o.id) ||
-        assignments.some((a) => a.orderId === o.id && a.late),
-    )
-    // Опоздание стоит компенсации гостю, неразобранный заказ — отмены.
-    .reduce(
-      (acc, o) => acc + (unassignedIds.includes(o.id) ? o.sum : Math.round(o.sum * 0.15)),
-      0,
-    );
+  const lateCount = all.filter((a) => a.late).length + unassignedIds.length;
+
+  const lostRub = orders.reduce((acc, order) => {
+    if (unassignedIds.includes(order.id)) return acc + order.sum;
+    const record = all.find((a) => a.orderId === order.id);
+    if (!record || !record.late) return acc;
+    // До часа гость ждёт и получает компенсацию, после — отменяет заказ.
+    return acc + (record.totalMin > CANCEL_MIN ? order.sum : Math.round(order.sum * 0.15));
+  }, 0);
 
   return {
     avgDelivery,
     latePercent: Math.round((lateCount / orders.length) * 100),
     perCourier: couriersOnShift
-      ? Math.round((delivered / couriersOnShift) * 10) / 10
+      ? Math.round((assignments.length / couriersOnShift) * 10) / 10
       : 0,
-    unassigned: unassignedIds.length,
+    unassigned: projected.length + unassignedIds.length,
     lostRub,
   };
 }

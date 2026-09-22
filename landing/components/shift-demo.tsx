@@ -66,6 +66,12 @@ export function ShiftDemo() {
     return map;
   }, [result]);
 
+  const projectedByOrder = useMemo(() => {
+    const map = new Map<string, Assignment>();
+    result.projected.forEach((a) => map.set(a.orderId, a));
+    return map;
+  }, [result]);
+
   const toggleType = (type: CourierType) => {
     setTypes((prev) => {
       const next = prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type];
@@ -127,7 +133,7 @@ export function ShiftDemo() {
               type="button"
               onClick={() => setMode(item.id)}
               aria-pressed={mode === item.id}
-              className={`flex-1 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              className={`flex-1 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
                 mode === item.id
                   ? "bg-cyan-accent text-ink"
                   : "text-white/60 hover:text-white"
@@ -157,10 +163,14 @@ export function ShiftDemo() {
           hint="заказов позже обещанного"
         />
         <Kpi
-          label="Не разобрано"
+          label={mode === "goulash" ? "Не разобрано" : "Ждут диспетчера"}
           value={`${kpi.unassigned}`}
           tone={kpi.unassigned > 0 ? "bad" : "good"}
-          hint="заказов без курьера"
+          hint={
+            mode === "goulash"
+              ? "нет курьера нужного типа"
+              : "он дойдёт до них по одному"
+          }
         />
         <Kpi
           label="Заказов на курьера"
@@ -171,7 +181,7 @@ export function ShiftDemo() {
         <Kpi
           label="Потери за час"
           value={`${kpi.lostRub.toLocaleString("ru-RU")} ₽`}
-          tone={kpi.lostRub > 0 ? "bad" : "good"}
+          tone={kpi.lostRub > 1500 ? "bad" : "good"}
           hint="отмены и компенсации"
         />
       </dl>
@@ -236,6 +246,7 @@ export function ShiftDemo() {
             mode={mode}
             couriers={couriers}
             byOrder={byOrder}
+            projectedByOrder={projectedByOrder}
             picks={picks}
             onPick={(orderId, courierId) =>
               setPicks((prev) => ({ ...prev, [orderId]: courierId || undefined }))
@@ -249,6 +260,7 @@ export function ShiftDemo() {
             stopList={stopList}
             onToggleStop={toggleStop}
             byOrder={byOrder}
+            projectedByOrder={projectedByOrder}
           />
         )}
         {role === "courier" && (
@@ -292,13 +304,20 @@ function Kpi({
   );
 }
 
-function statusChip(assignment: Assignment | undefined) {
-  if (!assignment)
+function statusChip(assignment: Assignment | undefined, projected?: Assignment) {
+  if (!assignment) {
+    if (projected)
+      return (
+        <span className="rounded-md bg-[#ff6b6b]/15 px-2 py-1 text-xs font-semibold text-[#ff6b6b] tnum">
+          ждёт диспетчера · ≈{projected.totalMin} мин
+        </span>
+      );
     return (
       <span className="rounded-md bg-[#ff6b6b]/15 px-2 py-1 text-xs font-semibold text-[#ff6b6b]">
-        ждёт курьера
+        нет курьера
       </span>
     );
+  }
   if (assignment.late)
     return (
       <span className="rounded-md bg-[#ffb648]/15 px-2 py-1 text-xs font-semibold text-[#ffb648] tnum">
@@ -316,6 +335,7 @@ function AdminBoard({
   mode,
   couriers,
   byOrder,
+  projectedByOrder,
   picks,
   onPick,
   stopList,
@@ -323,6 +343,7 @@ function AdminBoard({
   mode: Mode;
   couriers: typeof COURIERS;
   byOrder: Map<string, Assignment>;
+  projectedByOrder: Map<string, Assignment>;
   picks: Record<string, string | undefined>;
   onPick: (orderId: string, courierId: string) => void;
   stopList: string[];
@@ -333,9 +354,7 @@ function AdminBoard({
         <p>
           {mode === "goulash"
             ? "Заказы распределены автоматически: срочный — ближайшему подходящему курьеру."
-            : "Диспетчер назначает курьера руками. Каждое назначение — звонок и потеря " +
-              DISPATCH_PENALTY_MIN +
-              " минут."}
+            : `Диспетчер назначает курьера руками: выберите его в списке. До остальных заказов он дойдёт по одному, каждый звонок отодвигает следующий на ${DISPATCH_PENALTY_MIN} минут.`}
         </p>
       </div>
 
@@ -423,7 +442,7 @@ function AdminBoard({
                     )}
                   </td>
                   <td className="rounded-r-xl border-y border-r border-ink-line px-3 py-3">
-                    {statusChip(assignment)}
+                    {statusChip(assignment, projectedByOrder.get(order.id))}
                   </td>
                 </tr>
               );
@@ -440,11 +459,13 @@ function KitchenBoard({
   stopList,
   onToggleStop,
   byOrder,
+  projectedByOrder,
 }: {
   mode: Mode;
   stopList: string[];
   onToggleStop: (item: string) => void;
   byOrder: Map<string, Assignment>;
+  projectedByOrder: Map<string, Assignment>;
 }) {
   const slots = KITCHEN_SLOTS.map((slot) => ({
     slot,
@@ -481,10 +502,14 @@ function KitchenBoard({
                             : "border-ink-line bg-ink-soft"
                         }`}
                       >
-                        <p className="flex items-center justify-between font-medium tnum">
+                        <p className="flex items-start justify-between gap-2 font-medium tnum">
                           №{order.id}
-                          <span className="text-xs font-normal text-white/40">
-                            {assignment ? `курьер через ${assignment.etaMin} мин` : "без курьера"}
+                          <span className="shrink-0 text-right text-xs font-normal text-white/40">
+                            {assignment
+                              ? `курьер через ${assignment.etaMin} мин`
+                              : projectedByOrder.has(order.id)
+                                ? "курьер не назначен"
+                                : "без курьера"}
                           </span>
                         </p>
                         <p className="mt-1 text-xs text-white/50">

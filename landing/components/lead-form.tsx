@@ -128,7 +128,7 @@ export function LeadForm() {
         <p className="mt-3 max-w-lg text-white/65">
           Номер заявки <span className="font-semibold text-cyan-accent tnum">{leadId}</span>.
           Партнёр в вашем городе свяжется в {fields.channel.toLowerCase()} в течение рабочего
-          дня, разберёт вечернюю смену и покажет, что меняется в первые 21 день.
+          дня, разберёт вечернюю смену и покажет, что меняется за три недели перехода.
         </p>
         <ul className="mt-5 space-y-2 text-sm text-white/55">
           <li>1. Звонок-разбор на 20 минут: поток, каналы, курьеры, касса.</li>
@@ -280,7 +280,7 @@ export function LeadForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-accent px-6 py-3.5 text-base font-semibold text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
+          className="inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-cyan-accent px-6 py-3.5 text-base font-semibold text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
         >
           {status === "loading" && (
             <span
