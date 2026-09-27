@@ -2,16 +2,24 @@
 
 @theme {
   --color-ink: #000000;
-  --color-ink-soft: #0b0d0e;
-  --color-ink-line: #1e2224;
+  --color-ink-soft: #0a0b0c;
+  --color-ink-line: #1c1f21;
   --color-paper: #ffffff;
   --color-cyan-accent: #00ffff;
   --color-cyan-300: #66ffff;
   --color-cyan-200: #99ffff;
   --color-cyan-100: #ccffff;
   --font-sans: var(--font-onest), system-ui, sans-serif;
-  --text-display: clamp(2.5rem, 7vw, 5.5rem);
-  --text-h2: clamp(1.75rem, 4vw, 3rem);
+
+  --text-display: clamp(2.75rem, 7.2vw, 6.5rem);
+  --text-h1: clamp(2rem, 4.6vw, 4rem);
+  --text-h2: clamp(1.625rem, 3vw, 2.5rem);
+  --text-h3: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-lede: clamp(1.0625rem, 1.5vw, 1.375rem);
+
+  --text-figure: clamp(2rem, 3.6vw, 3.25rem);
+  --text-figure-lg: clamp(2.75rem, 5.4vw, 4.75rem);
+  --text-figure-sm: clamp(1.625rem, 2.4vw, 2.25rem);
 }
 
 html {
@@ -24,25 +32,115 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Swiss typographic rule for the whole page: nothing heavier than Medium. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.028em;
+}
+
+h3,
+h4 {
+  letter-spacing: -0.015em;
+}
+
 ::selection {
   background: var(--color-cyan-accent);
   color: #000;
 }
 
 @layer utilities {
+  /* Wide outer margins, single measured module for every section. */
   .shell {
     width: 100%;
-    max-width: 78rem;
+    max-width: 92rem;
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: clamp(1.25rem, 6vw, 6rem);
+  }
+
+  /* 12 columns, one gutter value across the page. */
+  .grid12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2rem);
+  }
+
+  .rule {
+    border-top: 1px solid var(--color-ink-line);
   }
 
   .hairline {
     border: 1px solid var(--color-ink-line);
   }
 
+  /* Vertical column hairlines on the same module as .shell, as in the reference. */
+  .gridlines {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    translate: -50% 0;
+    width: 100%;
+    max-width: 92rem;
+    padding-inline: clamp(1.25rem, 6vw, 6rem);
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .gridlines::before {
+    content: "";
+    display: block;
+    height: 100%;
+    border-right: 1px solid var(--color-ink-line);
+    background-image: linear-gradient(
+      to right,
+      var(--color-ink-line) 0 1px,
+      transparent 1px 100%
+    );
+    background-size: 33.3333% 100%;
+  }
+
   .tnum {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Numbers: one step up in size, one step tighter in tracking. */
+  .figure {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.05em;
+    line-height: 0.92;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .wordmark {
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.8;
+    font-size: clamp(3.5rem, 15.5vw, 15rem);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.24),
+      rgba(255, 255, 255, 0.045)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 

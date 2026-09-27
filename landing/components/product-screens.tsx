@@ -84,15 +84,13 @@ export function ProductScreens() {
   const payTotal = cartTotal - 200;
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-ink-line bg-ink-soft">
-      <div className="flex flex-col gap-4 border-b border-ink-line p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+    <div className="overflow-hidden border border-ink-line bg-ink-soft">
+      <div className="flex flex-col gap-5 border-b border-ink-line p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div>
-          <p className="text-sm text-white/45">goulash.tech</p>
-          <h3 className="mt-1 text-xl font-semibold sm:text-2xl">
-            От первого заказа до доставки к гостю
-          </h3>
+          <p className="eyebrow text-white/35">goulash.tech</p>
+          <h3 className="mt-3 text-h3">От первого заказа до доставки к гостю</h3>
         </div>
-        <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-ink p-1">
+        <div role="tablist" aria-label="Экран продукта" className="flex border border-ink-line bg-ink p-1">
           {ROLES.map((item) => (
             <button
               key={item.id}
@@ -100,7 +98,7 @@ export function ProductScreens() {
               role="tab"
               aria-selected={role === item.id}
               onClick={() => setRole(item.id)}
-              className={`flex-1 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              className={`flex-1 whitespace-nowrap px-5 py-2 text-sm font-medium transition-colors ${
                 role === item.id ? "bg-cyan-accent text-ink" : "text-white/60 hover:text-white"
               }`}
             >

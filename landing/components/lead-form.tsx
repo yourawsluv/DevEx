@@ -104,13 +104,13 @@ export function LeadForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-3xl border border-cyan-accent/50 bg-cyan-accent/5 p-6 sm:p-10 rise">
-        <p className="grid size-12 place-items-center rounded-full bg-cyan-accent text-2xl font-bold text-ink">
+      <div className="border border-cyan-accent/50 bg-cyan-accent/5 p-6 sm:p-10 rise">
+        <p className="grid size-12 place-items-center bg-cyan-accent text-2xl font-medium text-ink">
           ✓
         </p>
-        <h3 className="mt-5 text-2xl font-semibold sm:text-3xl">Заявка отправлена</h3>
-        <p className="mt-3 max-w-lg text-white/65">
-          Номер заявки <span className="font-semibold text-cyan-accent tnum">{leadId}</span>.
+        <h3 className="mt-7 text-h2">Заявка отправлена</h3>
+        <p className="mt-4 max-w-lg text-white/65">
+          Номер заявки <span className="text-cyan-accent tnum">{leadId}</span>.
           Наш специалист проконсультирует вас по запуску платформы с учетом особенностей вашего
           бизнеса.
         </p>
@@ -134,9 +134,9 @@ export function LeadForm() {
     <form
       onSubmit={submit}
       noValidate
-      className="rounded-3xl border border-ink-line bg-ink-soft p-6 sm:p-8"
+      className="border border-ink-line bg-ink-soft p-6 sm:p-10"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <Field
           label="Имя"
           error={errors.name}
@@ -203,9 +203,9 @@ export function LeadForm() {
       {status === "error" && (
         <div
           role="alert"
-          className="mt-5 rounded-2xl border border-[#ff6b6b]/50 bg-[#ff6b6b]/10 p-4 text-sm text-[#ff6b6b] rise"
+          className="mt-6 border border-[#ff6b6b]/50 bg-[#ff6b6b]/10 p-4 text-sm text-[#ff6b6b] rise"
         >
-          <p className="font-semibold">Заявка не отправилась</p>
+          <p className="font-medium">Заявка не отправилась</p>
           <p className="mt-1 text-white/70">{serverMessage}</p>
         </div>
       )}
@@ -213,7 +213,7 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-cyan-accent px-6 py-3.5 text-base font-semibold text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
+        className="mt-8 inline-flex items-center justify-center gap-2 bg-cyan-accent px-7 py-4 text-left text-base font-medium text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
       >
         {status === "loading" && (
           <span
@@ -233,7 +233,7 @@ export function LeadForm() {
 }
 
 function inputClass(invalid: boolean) {
-  return `w-full rounded-xl border bg-ink px-4 py-3 text-base text-white placeholder:text-white/25 focus:outline-none ${
+  return `w-full border bg-ink px-4 py-3.5 text-base text-white placeholder:text-white/25 focus:outline-none ${
     invalid ? "border-[#ff6b6b] focus:border-[#ff6b6b]" : "border-ink-line focus:border-cyan-accent"
   }`;
 }
