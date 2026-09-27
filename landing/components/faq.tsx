@@ -46,10 +46,10 @@ export function Faq() {
               type="button"
               onClick={() => setOpen(isOpen ? null : index)}
               aria-expanded={isOpen}
-              className="flex w-full items-start justify-between gap-6 py-5 text-left"
+              className="flex w-full items-start justify-between gap-8 py-7 text-left"
             >
               <span
-                className={`text-lg font-medium transition-colors ${
+                className={`max-w-[44ch] text-h3 font-medium leading-snug transition-colors ${
                   isOpen ? "text-cyan-accent" : "text-white"
                 }`}
               >
@@ -57,14 +57,18 @@ export function Faq() {
               </span>
               <span
                 aria-hidden
-                className={`mt-1 shrink-0 text-xl leading-none transition-transform ${
+                className={`mt-1 shrink-0 text-2xl leading-none transition-transform ${
                   isOpen ? "rotate-45 text-cyan-accent" : "text-white/40"
                 }`}
               >
                 +
               </span>
             </button>
-            {isOpen && <p className="max-w-3xl pb-6 text-white/60 rise">{item.a}</p>}
+            {isOpen && (
+              <p className="max-w-[62ch] pb-8 text-sm leading-relaxed text-white/60 rise">
+                {item.a}
+              </p>
+            )}
           </div>
         );
       })}

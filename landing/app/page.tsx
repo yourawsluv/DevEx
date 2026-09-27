@@ -1,21 +1,54 @@
-import { LogoHorizontal, LogoStacked, Section, SectionLabel } from "@/components/brand";
+import {
+  BrandLogo,
+  Eyebrow,
+  LogoHorizontal,
+  LogoStacked,
+  Section,
+  SectionHead,
+} from "@/components/brand";
 import { Faq } from "@/components/faq";
 import { LeadForm } from "@/components/lead-form";
 import { ProductScreens } from "@/components/product-screens";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
-const HERO_FACTS = [
-  { value: "900+", label: "точек подключено к системе" },
-  { value: "1,3 млн+", label: "заказов через систему в месяц" },
-  { value: "150+", label: "городов с автоматизированной доставкой" },
-  { value: "21 день", label: "срок перехода на платформу" },
+const CLIENT_LOGOS = [
+  { src: "/clients/up-sushi.svg", alt: "UP SUSHI" },
+  { src: "/clients/sushkof.svg", alt: "Сушкоф и пицца" },
+  { src: "/clients/food-garden.svg", alt: "FOODGARDEN" },
+  { src: "/clients/zhishi.svg", alt: "Жиши суши" },
+  { src: "/clients/sushi-sell.svg", alt: "Сушиселл" },
+  { src: "/clients/ninjapizza.svg", alt: "Ninja Pizza" },
+  { src: "/clients/fed-king.svg", alt: "Сытый Король" },
+  { src: "/clients/non-locals.svg", alt: "Неместные" },
+  { src: "/clients/rolik.svg", alt: "Rolik" },
+  { src: "/clients/yapdomik.svg", alt: "Японский домик" },
+  { src: "/clients/magicburger.svg", alt: "Magic burger" },
+  { src: "/clients/sushiman.svg", alt: "SUSHIMAN" },
+];
+
+const PARTNER_LOGOS = [
+  { src: "/partners/cyber-nevod.svg", alt: "Cyber-Nevod" },
+  { src: "/partners/mango-office.svg", alt: "Mango Office" },
+  { src: "/partners/one-sync.svg", alt: "OneSync" },
+  { src: "/partners/data-mentor.svg", alt: "Data Mentor" },
+  { src: "/partners/pointer.svg", alt: "Пойнтер" },
+  { src: "/partners/yandex-delivery.svg", alt: "Яндекс Доставка" },
+];
+
+const FACTS = [
+  { value: "900+", unit: "точек подключено к системе" },
+  { value: "1,3 млн+", unit: "заказов через систему в месяц" },
+  { value: "150+", unit: "городов с автоматизированной доставкой" },
+  { value: "21 день", unit: "срок перехода на платформу" },
+  { value: "4,8", unit: "средняя оценка пользователей приложения" },
 ];
 
 const GROWTH = [
   {
     kicker: "Больше заказов в своём канале",
     value: "+30%",
-    label: "заказов",
+    unit: "заказов",
     items: [
       "Конверсионное приложение",
       "RFM-анализ персонализация",
@@ -26,7 +59,7 @@ const GROWTH = [
   {
     kicker: "Кухня без срывов и скрытых расходов",
     value: "Без",
-    label: "срывов на кухне",
+    unit: "срывов на кухне",
     items: [
       "Автораспределение заказов",
       "Полностью заменяем «ручные костыли»",
@@ -36,7 +69,7 @@ const GROWTH = [
   {
     kicker: "Скорость доставки выше конкурента",
     value: "−12 мин",
-    label: "на заказ в час-пик",
+    unit: "на заказ в час-пик",
     items: [
       "Маршрутизация с учётом местонахождения курьера и типа доставки (пеший/вело/авто)",
       "Подтверждение и распределение заказов без участия человека",
@@ -46,7 +79,7 @@ const GROWTH = [
   {
     kicker: "Точность доставки → повторный гость",
     value: "+13%",
-    label: "повторных заказов",
+    unit: "повторных заказов",
     items: [
       "Предсказуемость на +20% ETA → +45% удовлетворённости → +13% повторных заказов",
       "Точное прогнозирование рассчитывается автоматически, с учётом загрузки кухни и маршрута курьера одновременно",
@@ -55,12 +88,18 @@ const GROWTH = [
   {
     kicker: "Чёткая видимость на данных",
     value: "2%",
-    label: "потерь возвращаем",
+    unit: "потерь возвращаем",
     items: [
       "Показатели управления",
       "Контроль кухни, списаний, смен, маршрутов и операционных отклонений ликвидируют 2% утечек в расходах",
     ],
   },
+];
+
+const MARKET = [
+  { value: "+21%", unit: "Средний рост выручки по рынку (РБК)", accent: false },
+  { value: "+7.1%", unit: "Выше рынка с Goulash.tech", accent: true },
+  { value: "+29%", unit: "Рост выручки клиентов год к году", accent: true },
 ];
 
 const FIT = [
@@ -115,81 +154,86 @@ const PRODUCT_POINTS = [
 ];
 
 const SHIFTS = [
-  { title: "Время доставки", before: "до ~87 мин", after: "после ~51 мин", delta: "−40%" },
-  { title: "Приготовление заказа", before: "до ~60 мин", after: "после ~32 мин", delta: "−47%" },
+  { title: "Время доставки", delta: "−40%", before: "до ~87 мин", after: "после ~51 мин" },
+  { title: "Приготовление заказа", delta: "−47%", before: "до ~60 мин", after: "после ~32 мин" },
   {
     title: "Доля заказов через приложение",
+    delta: "+41%",
     before: "до 27%",
     after: "после 68%",
-    delta: "+41%",
   },
 ];
 
 const REVIEWS = [
   {
-    result: "−17% скрытых расходов",
+    result: "−17%",
+    resultUnit: "скрытых расходов",
     quote:
       "При выборе платформы смотрели не только на цену, но и на то, как она влияет на стратегию. Нам нужна была система, которая позволит расти, а не ставить нас в зависимость от подрядчиков",
     person: "Регина Васина",
     company: "Sayori",
+    logo: "/clients/sayori.svg",
   },
   {
-    result: "+40% заказов",
-    quote: "Собственное приложение за год увеличило количество заказов через мобильное приложение на 40%",
+    result: "+40%",
+    resultUnit: "заказов",
+    quote:
+      "Собственное приложение за год увеличило количество заказов через мобильное приложение на 40%",
     person: "Владимир Расторгуев",
     company: "СушиСелл",
+    logo: "/clients/sushi-sell.svg",
   },
   {
-    result: "x3 выручка",
+    result: "x3",
+    resultUnit: "выручка",
     quote:
       "Оборот компании за год вырос в 3 раза благодаря маршрутизации заказов. Мы сократили время доставки и увеличили производительность кухни.",
     person: "Валентина Мухачева",
     company: "FoodGarden",
+    logo: "/clients/food-garden.svg",
   },
   {
-    result: "",
     quote:
       "Автоматическое распределение курьеров убрало ручные звонки диспетчера и минимизировало человеческий фактор. Расходы на логистику снизились уже в первый месяц",
     person: "Дмитрий Инякин",
     company: "Неместные",
+    logo: "/clients/non-locals.svg",
   },
   {
-    result: "",
     quote:
       "Раньше коммуникация с гостями была на стороне подрядчиков — теперь мы выстроили её внутри компании и управляем ею сами",
     person: "Виктория Беляйкина",
     company: "Суши Шеф",
   },
   {
-    result: "",
+    result: "до 10 минут",
+    resultUnit: "в каждом заказе",
+    quote:
+      "Убрали подтверждение заказов через телефон - экономия до 10 минут в каждом заказе,без расходов на смс.",
+    person: "Ирина Кудрявцева",
+    company: "Владелица компании",
+  },
+  {
     quote:
       "Я думаю, еще 10% не разобрал от всей программы. Я до сих пор нахожусь под впечатлением от такого огромного функционала и возможностей этой программы!",
     person: "Андрей",
     company: "Владелец",
   },
   {
-    result: "",
     quote:
       "Легкий переход на систему. Наш опыт смены более 3 систем автоматизации позволил оценить легкий и комфортный переход на Goulash.tech. Благодаря интеграциям и возможности загрузить данные, которые были у нас, мы смогли быстро подключиться и сохранить наших клиентов.",
     person: "Александр Невский",
     company: "Управляющий директор",
   },
-  {
-    result: "до 10 минут в каждом заказе",
-    quote:
-      "Убрали подтверждение заказов через телефон - экономия до 10 минут в каждом заказе,без расходов на смс.",
-    person: "Ирина Кудрявцева",
-    company: "Владелица компании",
-  },
 ];
 
 const PLACES = [
-  "СушиСелл",
-  "Sayori",
-  "ТиЧ Пицца",
-  "FoodGarden",
-  "Неместные",
-  "Суши Шеф",
+  { alt: "Сушиселл", src: "/clients/sushi-sell.svg" },
+  { alt: "Sayori", src: "/clients/sayori.svg" },
+  { alt: "ТиЧ Пицца", src: "/clients/tick-pizza.svg" },
+  { alt: "FOODGARDEN", src: "/clients/food-garden.svg" },
+  { alt: "Неместные", src: "/clients/non-locals.svg" },
+  { alt: "Сушкоф и пицца", src: "/clients/sushkof.svg" },
 ];
 
 const TARIFFS = [
@@ -210,258 +254,471 @@ const TARIFFS = [
   },
 ];
 
+const CELL = "border-t border-ink-line pt-8";
+const COL_RULE = "lg:border-l lg:border-ink-line lg:pl-8";
+
 export default function Home() {
   return (
     <>
       <SiteHeader />
       <main id="top">
+        {/* ============================= ПЕРВЫЙ ЭКРАН ============================= */}
         <section className="relative overflow-hidden">
+          <span aria-hidden className="gridlines mx-auto max-w-[92rem]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-cyan-accent/12 blur-[140px]"
+            className="pointer-events-none absolute -top-48 left-1/4 h-[520px] w-[760px] rounded-full bg-cyan-accent/10 blur-[150px]"
           />
-          <div className="shell relative pt-14 pb-16 sm:pt-20 sm:pb-24">
-            <LogoHorizontal className="h-9 w-auto sm:h-11" />
-            <h1 className="mt-8 max-w-4xl text-display font-extrabold leading-[0.95] tracking-tight">
-              +3 млн ₽ дополнительной выручки в год на точку
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-white/65 sm:text-xl">
-              Больше заказов, быстрее доставка, меньше потерь и выше возвращаемость гостей
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#lead"
-                className="inline-flex items-center justify-center rounded-full bg-cyan-accent px-7 py-4 text-center text-base font-semibold text-ink transition-colors hover:bg-cyan-300"
-              >
-                Узнать, как Goulash.tech поможет моему ресторану доставки
-              </a>
-              <a
-                href="#product"
-                className="inline-flex items-center justify-center rounded-full border border-ink-line px-7 py-4 text-base font-semibold text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
-              >
-                Смотреть продукт
-              </a>
+          <div className="shell relative pt-16 pb-14 sm:pt-24 lg:pt-28 lg:pb-20">
+            <div className="grid12">
+              <div className="col-span-12 lg:col-span-6">
+                <LogoHorizontal className="h-8 w-auto sm:h-10" />
+              </div>
+              <p className="col-span-12 mt-10 max-w-[30ch] text-sm leading-snug text-white/45 sm:mt-14 lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right lg:text-base">
+                Система автоматизации
+                <br />
+                для ресторанов доставки
+              </p>
             </div>
-            <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-4">
-              {HERO_FACTS.map((fact) => (
-                <div key={fact.label} className="bg-ink p-5">
-                  <dt className="text-2xl font-bold text-cyan-accent tnum sm:text-3xl">{fact.value}</dt>
-                  <dd className="mt-1 text-sm text-white/50">{fact.label}</dd>
-                </div>
+
+            <div className="grid12 mt-14 sm:mt-20 lg:mt-28">
+              <h1 className="col-span-12 text-display leading-[0.92] lg:col-span-10">
+                +3 млн ₽ дополнительной выручки в год на точку
+                <span aria-hidden className="align-top text-[0.4em] text-cyan-accent">
+                  *
+                </span>
+              </h1>
+            </div>
+
+            <div className="grid12 mt-12 items-end gap-y-10 sm:mt-16">
+              <p className="col-span-12 text-lede leading-snug text-white/60 sm:col-span-8 lg:col-span-5">
+                Больше заказов, быстрее доставка, меньше потерь и выше возвращаемость гостей
+              </p>
+              <div className="col-span-12 flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:col-start-7">
+                <a
+                  href="#lead"
+                  className="inline-flex items-center justify-center bg-cyan-accent px-7 py-4 text-base font-medium text-ink transition-colors hover:bg-cyan-300"
+                >
+                  Обсудить за 15 минут
+                </a>
+                <a
+                  href="#product"
+                  className="inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                >
+                  Смотреть продукт
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Логотипы клиентов — нижняя полоса первого экрана */}
+          <div className="shell relative pb-16 lg:pb-20">
+            <div className="rule grid grid-cols-2 gap-x-8 gap-y-10 pt-10 sm:grid-cols-4 lg:grid-cols-6">
+              {CLIENT_LOGOS.map((logo) => (
+                <BrandLogo
+                  key={logo.src}
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-6 w-auto max-w-[72%] object-contain object-left opacity-70 transition-opacity hover:opacity-100 sm:h-7"
+                />
               ))}
-            </dl>
-            <p className="mt-4 text-sm text-white/40">4,8 — средняя оценка пользователей приложения</p>
+            </div>
           </div>
         </section>
 
+        {/* ============================= ГУЛЯШ В ЦИФРАХ ============================= */}
+        <Section id="facts" gridlines>
+          <Eyebrow>Гуляш в цифрах</Eyebrow>
+          <dl className="grid12 mt-14 gap-y-12">
+            {FACTS.map((fact) => (
+              <div
+                key={fact.value}
+                className={`col-span-6 sm:col-span-4 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+              >
+                <dt className="figure text-figure text-cyan-accent">{fact.value}</dt>
+                <dd className="mt-4 max-w-[24ch] text-sm leading-snug text-white/45">
+                  {fact.unit}
+                </dd>
+              </div>
+            ))}
+            <div aria-hidden className="hidden lg:col-span-4 lg:block" />
+          </dl>
+        </Section>
+
+        {/* ============================= ИСТОЧНИКИ РОСТА ============================= */}
         <Section id="growth">
-          <SectionLabel>Источники роста выручки</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Каждая функция Goulash существует только по одной причине — приблизить рестораны доставки к
-            росту выручки
-          </h2>
-          <p className="mt-5 text-white/60">Отраслевая экспертиза в основе решения.</p>
-          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <SectionHead
+            eyebrow="Рост выручки"
+            title={
+              <>
+                Источники
+                <br />
+                роста выручки
+              </>
+            }
+            note={
+              <>
+                <p>
+                  Каждая функция Goulash существует только по одной причине — приблизить
+                  рестораны доставки к росту выручки.
+                </p>
+                <p className="text-white/40">Отраслевая экспертиза в основе решения.</p>
+              </>
+            }
+          />
+
+          <div className="grid12 mt-20 gap-y-16">
             {GROWTH.map((block) => (
-              <article key={block.kicker} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-                <p className="text-sm text-white/45">{block.kicker}</p>
-                <p className="mt-3 text-3xl font-bold text-cyan-accent tnum">{block.value}</p>
-                <p className="text-white/70">{block.label}</p>
-                <ul className="mt-4 space-y-2">
+              <article
+                key={block.kicker}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+              >
+                <p className="min-h-[2.75rem] max-w-[26ch] text-sm leading-snug text-white/40">
+                  {block.kicker}
+                </p>
+                <p className="figure mt-6 text-figure text-cyan-accent">{block.value}</p>
+                <p className="mt-3 text-white/70">{block.unit}</p>
+                <ul className="mt-8 space-y-3 border-t border-ink-line pt-6">
                   {block.items.map((item) => (
-                    <li key={item} className="flex gap-3 text-white/70">
-                      <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-cyan-accent" />
+                    <li key={item} className="flex gap-3 text-sm leading-relaxed text-white/60">
+                      <span aria-hidden className="mt-2 size-1 shrink-0 bg-cyan-accent" />
                       {item}
                     </li>
                   ))}
                 </ul>
               </article>
             ))}
-            <article className="rounded-2xl border border-cyan-accent/40 bg-cyan-accent/5 p-6">
-              <p className="text-sm text-white/45">Результат, который опережает рынок</p>
-              <p className="mt-3 text-white/80">
-                Рост бизнеса — главный показатель эффективности. +29% рост выручки клиентов год к году. На
-                7,1% выше рыночного показателя.
-              </p>
-              <dl className="mt-6 grid grid-cols-3 gap-3">
-                <div>
-                  <dt className="text-2xl font-bold tnum">+21%</dt>
-                  <dd className="mt-1 text-xs text-white/45">Средний рост выручки по рынку (РБК)</dd>
-                </div>
-                <div>
-                  <dt className="text-2xl font-bold text-cyan-accent tnum">+7.1%</dt>
-                  <dd className="mt-1 text-xs text-white/45">Выше рынка с Goulash.tech</dd>
-                </div>
-                <div>
-                  <dt className="text-2xl font-bold text-cyan-accent tnum">+29%</dt>
-                  <dd className="mt-1 text-xs text-white/45">Рост выручки клиентов год к году</dd>
-                </div>
-              </dl>
-              <p className="mt-5 text-sm text-white/40">* — по данным РБК</p>
-              <p className="mt-2 text-sm text-white/55">Станислав Никифоров, коммерческий директор Goulash.tech</p>
-            </article>
+            <div aria-hidden className="hidden lg:col-span-4 lg:block" />
           </div>
+
+          <div className="grid12 mt-24 gap-y-10 border-t border-ink-line pt-12">
+            <h3 className="col-span-12 text-h3 lg:col-span-4">
+              Результат, который опережает рынок
+            </h3>
+            <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+              <p className="max-w-[54ch] text-lede leading-snug text-white/60">
+                Рост бизнеса — главный показатель эффективности. +29% рост выручки клиентов год
+                к году. На 7,1% выше рыночного показателя.
+              </p>
+              <p className="mt-6 text-xs text-white/30">* — по данным РБК</p>
+              <p className="mt-1 text-xs text-white/40">
+                Станислав Никифоров, коммерческий директор Goulash.tech
+              </p>
+            </div>
+          </div>
+
+          <dl className="grid12 mt-16 gap-y-12">
+            {MARKET.map((item) => (
+              <div
+                key={item.value}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
+              >
+                <dt
+                  className={`figure text-figure ${
+                    item.accent ? "text-cyan-accent" : "text-white/70"
+                  }`}
+                >
+                  {item.value}
+                </dt>
+                <dd className="mt-4 max-w-[22ch] text-sm leading-snug text-white/45">
+                  {item.unit}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </Section>
 
-        <Section id="fit">
-          <SectionLabel>Кому подходит Goulash.tech</SectionLabel>
-          <div className="grid gap-4 lg:grid-cols-3">
+        {/* ============================= КОМУ ПОДХОДИТ ============================= */}
+        <Section id="fit" gridlines>
+          <SectionHead
+            title={
+              <>
+                Кому подходит
+                <br />
+                Goulash.tech
+              </>
+            }
+          />
+          <div className="grid12 mt-20 gap-y-16">
             {FIT.map((item) => (
-              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="mt-3 text-white/65">{item.text}</p>
-                <blockquote className="mt-5 text-white/85">«{item.quote}»</blockquote>
-                <p className="mt-4 font-medium">{item.person}</p>
-                <p className="text-sm text-white/45">{item.role}</p>
+              <article
+                key={item.title}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
+              >
+                <h3 className="text-h3">{item.title}</h3>
+                <p className="mt-5 text-sm leading-relaxed text-white/55">{item.text}</p>
+                <blockquote className="mt-10 border-t border-ink-line pt-6 text-lg leading-snug text-white/85">
+                  «{item.quote}»
+                </blockquote>
+                <p className="mt-6 text-sm">{item.person}</p>
+                <p className="text-sm text-white/40">{item.role}</p>
               </article>
             ))}
           </div>
-          <p className="mt-8 max-w-3xl text-lg text-white/70">
+          <p className="mt-24 max-w-[24ch] text-h2 leading-[1.1] sm:max-w-[30ch]">
             Goulash.tech идеально подходит под кухни с циклом приготовления до 30 минут
           </p>
         </Section>
 
+        {/* ============================= ПРОДУКТ ============================= */}
         <Section id="product">
-          <SectionLabel>Goulash.tech для сетей доставки</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Единая система управления операционными процессами в доставке: от первого заказа до доставки к
-            гостю и повторных заказов
-          </h2>
-          <div className="mt-10">
+          <SectionHead
+            eyebrow="Продукт"
+            title={
+              <>
+                Единая система управления
+                <br />
+                операционными процессами
+              </>
+            }
+            note={
+              <p>
+                От первого заказа до доставки к гостю и повторных заказов.
+              </p>
+            }
+          />
+          <div className="mt-20">
             <ProductScreens />
           </div>
-          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid12 mt-24 gap-y-14">
             {PRODUCT_POINTS.map((point) => (
-              <div key={point.title} className="bg-ink p-6">
-                <h3 className="font-semibold">{point.title}</h3>
-                <p className="mt-2 text-sm text-white/55">{point.text}</p>
+              <div
+                key={point.title}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+              >
+                <h3 className="max-w-[24ch] text-h3">{point.title}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-white/50">{point.text}</p>
               </div>
             ))}
           </div>
-          <div className="mt-4 grid gap-4 md:grid-cols-3">
+
+          <p className="eyebrow mt-24 text-white/35">До и после перехода на платформу</p>
+          <dl className="grid12 mt-10 gap-y-12">
             {SHIFTS.map((item) => (
-              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-                <h3 className="font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm text-white/45">{item.before}</p>
-                <p className="text-sm text-white/70">{item.after}</p>
-                <p className="mt-3 text-2xl font-bold text-cyan-accent tnum">{item.delta}</p>
-              </article>
+              <div
+                key={item.title}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
+              >
+                <dt className="figure text-figure text-cyan-accent">{item.delta}</dt>
+                <dd className="mt-5">
+                  <p className="min-h-[2.75rem] max-w-[20ch] text-sm leading-snug">
+                    {item.title}
+                  </p>
+                  <p className="mt-4 text-sm text-white/30 tnum">{item.before}</p>
+                  <p className="text-sm text-white/60 tnum">{item.after}</p>
+                </dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </Section>
 
-        <Section id="reviews">
-          <SectionLabel>Что говорят клиенты</SectionLabel>
-          <div className="grid gap-4 md:grid-cols-2">
+        {/* ============================= ОТЗЫВЫ ============================= */}
+        <Section id="reviews" gridlines>
+          <SectionHead
+            eyebrow="Кейсы и отзывы"
+            title={
+              <>
+                Что говорят
+                <br />
+                клиенты
+              </>
+            }
+          />
+          <div className="grid12 mt-20 gap-y-16">
             {REVIEWS.map((item) => (
-              <figure key={item.person + item.company} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+              <figure
+                key={item.person + item.company}
+                className={`col-span-12 flex flex-col sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+              >
+                <div className="flex h-8 items-center">
+                  {item.logo ? (
+                    <BrandLogo
+                      src={item.logo}
+                      alt={item.company}
+                      className="max-h-8 w-auto max-w-[170px] object-contain object-left opacity-80"
+                    />
+                  ) : (
+                    <span className="eyebrow text-white/30">{item.company}</span>
+                  )}
+                </div>
                 {item.result && (
-                  <p className="mb-4 inline-block rounded-lg bg-cyan-accent/12 px-3 py-1.5 text-sm font-semibold text-cyan-accent">
+                  <p className="figure mt-8 text-figure-sm text-cyan-accent">
                     {item.result}
+                    <span className="ml-2 align-middle text-sm font-normal tracking-normal text-white/45">
+                      {item.resultUnit}
+                    </span>
                   </p>
                 )}
-                <blockquote className="text-lg leading-snug text-white/85">«{item.quote}»</blockquote>
-                <figcaption className="mt-5">
-                  <p className="font-medium">{item.person}</p>
-                  <p className="text-sm text-white/45">{item.company}</p>
+                <blockquote className="mt-8 border-t border-ink-line pt-6 text-base leading-relaxed text-white/75">
+                  «{item.quote}»
+                </blockquote>
+                <figcaption className="mt-auto pt-8 text-sm">
+                  <p>{item.person}</p>
+                  <p className="text-white/40">{item.company}</p>
                 </figcaption>
               </figure>
             ))}
+            <div aria-hidden className="hidden lg:col-span-4 lg:block" />
           </div>
         </Section>
 
+        {/* ============================= ГЕОГРАФИЯ ============================= */}
         <Section id="geo">
-          <SectionLabel>Работаем по всей России</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Карта успешных заведений, уже внедривших Гуляш
-          </h2>
-          <p className="mt-5 max-w-2xl text-white/60">
-            150+ городов с автоматизированной доставкой. 900+ точек подключено к системе.
-          </p>
-          <ul className="mt-8 flex flex-wrap gap-2">
+          <SectionHead
+            eyebrow="Работаем по всей России"
+            title={
+              <>
+                Карта успешных заведений,
+                <br />
+                уже внедривших Гуляш
+              </>
+            }
+            note={
+              <p>
+                150+ городов с автоматизированной доставкой, 900+ точек подключено к системе.
+              </p>
+            }
+          />
+
+          <figure className="mt-16 bg-paper px-4 py-8 sm:mt-20 sm:px-12 sm:py-16">
+            <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/map-russia.svg"
+                alt="Карта заведений, внедривших систему автоматизации Гуляш"
+                width={1200}
+                height={672}
+                loading="lazy"
+                decoding="async"
+                className="mx-auto h-auto w-full min-w-[640px] sm:min-w-0"
+              />
+            </div>
+            <figcaption className="mt-6 text-xs text-[#1c1f21]/45 sm:hidden">
+              Карту можно прокрутить в сторону
+            </figcaption>
+          </figure>
+
+          <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-ink-line pt-10 sm:grid-cols-3 lg:mt-16 lg:grid-cols-6">
             {PLACES.map((place) => (
-              <li key={place} className="rounded-full border border-ink-line px-4 py-2 text-sm">
-                {place}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8 text-white/55">
-            Goulash.Tech осуществляет настройку программ автоматизации для ресторанов online
-          </p>
-          <p className="mt-2 text-sm text-white/40">Главный офис: Екатеринбург, Куйбышева, 41</p>
-        </Section>
-
-        <Section id="price">
-          <SectionLabel>Тарифы</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">У нас есть 2 тарифных плана</h2>
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {TARIFFS.map((item) => (
-              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-                <p className="text-sm uppercase tracking-wider text-white/40">{item.title}</p>
-                <p className="mt-3 text-3xl font-bold tnum">{item.value}</p>
-                <p className="mt-2 text-white/60">{item.text}</p>
-              </article>
+              <BrandLogo
+                key={place.alt}
+                src={place.src}
+                alt={place.alt}
+                className="h-6 w-auto max-w-[78%] object-contain object-left opacity-70 sm:h-7"
+              />
             ))}
           </div>
-        </Section>
 
-        <Section id="faq">
-          <SectionLabel>Вопросы и ответы</SectionLabel>
-          <h2 className="mb-8 max-w-3xl text-h2 font-bold leading-tight">
-            Отвечаем на самые популярные вопросы
-          </h2>
-          <Faq />
-        </Section>
-
-        <Section id="lead">
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-            <div>
-              <LogoStacked className="h-16 w-auto" />
-              <h2 className="mt-6 text-h2 font-bold leading-tight">
-                Узнать, как Goulash.tech поможет моему ресторану доставки
-              </h2>
-              <p className="mt-5 text-white/60">
-                Наш специалист проконсультирует вас по запуску платформы с учетом особенностей вашего
-                бизнеса.
-              </p>
-              <p className="mt-6 text-sm text-white/45">Тех. поддержка 24/7: +7 (391) 226-92-02</p>
-              <p className="text-sm text-white/45">+7 495 868-36-08 · info@goulash.tech</p>
-            </div>
-            <LeadForm />
-          </div>
-        </Section>
-
-        <footer className="border-t border-ink-line py-12">
-          <div className="shell flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-            <div>
-              <LogoHorizontal className="h-8 w-auto" />
-              <p className="mt-4 max-w-md text-sm text-white/45">
-                Goulash.tech — компания, которая помогает ресторанам расти. Развивающая систему роста для
-                ресторанов доставки. Основанная на многолетнем опыте управления собственной ресторанной
-                сетью Goulash.tech помогает более чем 900 ресторанам увеличивать выручку, управляя всей
-                цепочкой доставки — от первого клика до повторного заказа.
-              </p>
-            </div>
-            <div className="text-sm text-white/45">
-              <p>+7 495 868-36-08</p>
-              <p>info@goulash.tech</p>
-              <p className="mt-2">Главный офис: Екатеринбург, Куйбышева, 41</p>
-              <p className="mt-2">info@cyber-nevod.ru</p>
-            </div>
-            <p className="max-w-sm text-xs text-white/30">
-              SaaS-платформа Goulash Tech — сервис автоматизации ресторанной доставки. Общество с
-              ограниченной ответственностью «Мне бы в космос» является обладателем исключительных прав на
-              программу, право использования программы предоставляется на основании лицензионного договора,
-              ИНН 6678119318, 620027, Свердловская область, г. Екатеринбург, ул. Челюскинцев, д. 60, кв. 60.
-              ОКВЭД 62.01. Разработка компьютерного программного обеспечения. Коды видов деятельности в
-              области информационных технологий: 1.01, 2.01.
+          <div className="grid12 mt-20 border-t border-ink-line pt-10">
+            <p className="col-span-12 text-lede leading-snug text-white/55 lg:col-span-6">
+              Goulash.Tech осуществляет настройку программ автоматизации для ресторанов online
+            </p>
+            <p className="col-span-12 mt-6 text-sm text-white/40 lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
+              Главный офис: Екатеринбург, Куйбышева, 41
             </p>
           </div>
-        </footer>
+        </Section>
+
+        {/* ============================= ПАРТНЁРЫ ============================= */}
+        <Section id="partners" gridlines tight>
+          <Eyebrow>Партнеры</Eyebrow>
+          <div className="grid12 mt-12 gap-y-12">
+            {PARTNER_LOGOS.map((logo) => (
+              <div
+                key={logo.src}
+                className="col-span-6 flex items-center sm:col-span-4 lg:col-span-2"
+              >
+                <BrandLogo
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-7 w-auto max-w-[80%] object-contain object-left opacity-75 transition-opacity hover:opacity-100"
+                />
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ============================= ТАРИФЫ ============================= */}
+        <Section id="price">
+          <SectionHead
+            eyebrow="Тарифы"
+            title={
+              <>
+                У нас есть
+                <br />
+                2 тарифных плана
+              </>
+            }
+          />
+          <dl className="grid12 mt-20 gap-y-14">
+            {TARIFFS.map((item) => (
+              <div
+                key={item.title}
+                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
+              >
+                <dt className="eyebrow text-white/35">{item.title}</dt>
+                <dd>
+                  <p className="figure mt-8 text-figure">{item.value}</p>
+                  <p className="mt-5 max-w-[30ch] text-sm leading-relaxed text-white/50">
+                    {item.text}
+                  </p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+
+        {/* ============================= ВОПРОСЫ ============================= */}
+        <Section id="faq" gridlines>
+          <div className="grid12 gap-y-12">
+            <div className="col-span-12 lg:col-span-4">
+              <Eyebrow>FAQ</Eyebrow>
+              <h2 className="mt-7 text-h2 leading-[1.05]">
+                Вопросы
+                <br />
+                и ответы
+              </h2>
+              <p className="mt-6 text-sm text-white/40">
+                Отвечаем на самые популярные вопросы
+              </p>
+            </div>
+            <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+              <Faq />
+            </div>
+          </div>
+        </Section>
+
+        {/* ============================= ЗАЯВКА ============================= */}
+        <Section id="lead">
+          <div className="grid12 gap-y-14">
+            <div className="col-span-12 lg:col-span-4">
+              <LogoStacked className="h-14 w-auto" />
+              <h2 className="mt-10 text-h2 leading-[1.05]">
+                Узнать, как Goulash.tech поможет моему ресторану доставки
+              </h2>
+              <p className="mt-7 max-w-[34ch] text-sm leading-relaxed text-white/50">
+                Наш специалист проконсультирует вас по запуску платформы с учетом особенностей
+                вашего бизнеса.
+              </p>
+              <div className="mt-10 space-y-2 border-t border-ink-line pt-6 text-sm text-white/45">
+                <p className="tnum">Тех. поддержка 24/7: +7 (391) 226-92-02</p>
+                <p className="tnum">+7 495 868-36-08</p>
+                <p>info@goulash.tech</p>
+              </div>
+            </div>
+            <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+              <LeadForm />
+            </div>
+          </div>
+        </Section>
+
+        <SiteFooter />
       </main>
+
       <a
         href="#lead"
-        className="fixed inset-x-4 bottom-4 z-40 rounded-full bg-cyan-accent py-3.5 text-center text-base font-semibold text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
+        className="fixed inset-x-4 bottom-4 z-40 bg-cyan-accent py-3.5 text-center text-base font-medium text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
       >
         Хочу Гуляш
       </a>
