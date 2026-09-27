@@ -1,150 +1,212 @@
-import { Logo, Section, SectionLabel } from "@/components/brand";
+import { LogoHorizontal, LogoStacked, Section, SectionLabel } from "@/components/brand";
 import { Faq } from "@/components/faq";
 import { LeadForm } from "@/components/lead-form";
-import { ShiftDemo } from "@/components/shift-demo";
+import { ProductScreens } from "@/components/product-screens";
 import { SiteHeader } from "@/components/site-header";
 
 const HERO_FACTS = [
-  { value: "900+", label: "точек на системе" },
-  { value: "1,3 млн+", label: "заказов в месяц" },
-  { value: "150+", label: "городов" },
-  { value: "21 день", label: "переход" },
+  { value: "900+", label: "точек подключено к системе" },
+  { value: "1,3 млн+", label: "заказов через систему в месяц" },
+  { value: "150+", label: "городов с автоматизированной доставкой" },
+  { value: "21 день", label: "срок перехода на платформу" },
 ];
 
-const PAIN = [
+const GROWTH = [
   {
-    role: "Администратор",
-    text: "Переспрашивает адрес и состав заказа, обещает время «на глаз», ищет свободного курьера звонками.",
-    cost: "до 10 минут на заказ",
-  },
-  {
-    role: "Кухня",
-    text: "Не видит, что уже в пути, а что готовить сейчас. Стоп-лист живёт в чате смены, поэтому продаётся то, чего нет.",
-    cost: "отмены и комплименты",
-  },
-  {
-    role: "Курьер",
-    text: "Ждёт звонка, чтобы узнать адрес. Пеший едет за пять километров, потому что «других свободных нет».",
-    cost: "лишние минуты в час-пик",
-  },
-];
-
-const ROLE_SOLUTION = [
-  {
-    role: "Администратор",
+    kicker: "Больше заказов в своём канале",
+    value: "+30%",
+    label: "заказов",
     items: [
-      "Номер гостя определяется через интеграцию с АТС",
-      "Адрес подставляется из истории заказов",
-      "ETA считает система по загрузке кухни и маршруту",
+      "Конверсионное приложение",
+      "RFM-анализ персонализация",
+      "Тепловая карта: кто, откуда и как часто",
+      "Снижение зависимости от агрегаторов",
     ],
   },
   {
-    role: "Кухня",
+    kicker: "Кухня без срывов и скрытых расходов",
+    value: "Без",
+    label: "срывов на кухне",
     items: [
-      "Слоты по 15 минут: видно, что готовить сейчас",
-      "Автораспределение заказов вместо ручных костылей",
-      "Стоп-лист уходит руководителю в Telegram сам",
+      "Автораспределение заказов",
+      "Полностью заменяем «ручные костыли»",
+      "Без «комплиментарных подарков»",
     ],
   },
   {
-    role: "Курьер",
+    kicker: "Скорость доставки выше конкурента",
+    value: "−12 мин",
+    label: "на заказ в час-пик",
     items: [
-      "Push о готовом заказе без звонка диспетчера",
-      "Адрес и маршрут в приложении курьера",
-      "Тип доставки — пеший, вело, авто — учтён в назначении",
+      "Маршрутизация с учётом местонахождения курьера и типа доставки (пеший/вело/авто)",
+      "Подтверждение и распределение заказов без участия человека",
+      "Умная логистика",
+    ],
+  },
+  {
+    kicker: "Точность доставки → повторный гость",
+    value: "+13%",
+    label: "повторных заказов",
+    items: [
+      "Предсказуемость на +20% ETA → +45% удовлетворённости → +13% повторных заказов",
+      "Точное прогнозирование рассчитывается автоматически, с учётом загрузки кухни и маршрута курьера одновременно",
+    ],
+  },
+  {
+    kicker: "Чёткая видимость на данных",
+    value: "2%",
+    label: "потерь возвращаем",
+    items: [
+      "Показатели управления",
+      "Контроль кухни, списаний, смен, маршрутов и операционных отклонений ликвидируют 2% утечек в расходах",
     ],
   },
 ];
 
-const NUMBERS = [
-  { value: "−12 мин", label: "на заказ в час-пик за счёт маршрутизации" },
-  { value: "+30%", label: "заказов в своём канале, вне агрегаторов" },
-  { value: "+13%", label: "повторных заказов при точном ETA" },
-  { value: "2%", label: "потерь в расходах возвращается контролем смены" },
-  { value: "+3 млн ₽", label: "дополнительной выручки в год на точку" },
-  { value: "4,8", label: "средняя оценка приложения у гостей" },
-];
-
-const CASES = [
+const FIT = [
   {
+    title: "Нужен управляемый масштаб",
+    text: "Мы хотим открывать новые точки, контролировать партнёров, стандарты и качество доставки без хаоса в процессах.",
+    quote: "Я не видел всю сеть в одном контуре и не понимал, где проседает качество",
+    person: "Владимир Расторгуев",
+    role: "владелец сети ресторанов СушиСелл",
+  },
+  {
+    title: "Система ломается на масштабе",
+    text: "У нас своя курьерская служба, несколько кухонных потоков, 200+ заказов в день на точку, а текущая связка уже не справляется.",
     quote: "Я тушила пожары каждый день, но не понимала, где теряю деньги",
-    result: "−17% скрытых расходов",
     person: "Регина Васина",
-    company: "сеть доставок Sayori",
+    role: "владелец сети доставок Сайори",
   },
   {
-    quote:
-      "Автоматическое распределение курьеров убрало ручные звонки диспетчера и минимизировало человеческий фактор. Расходы на логистику снизились уже в первый месяц",
-    result: "логистика дешевле с первого месяца",
-    person: "Дмитрий Инякин",
-    company: "«Неместные»",
+    title: "Уперлись в рост и агрегаторы",
+    text: "Заказы есть, но маржа уходит в комиссии, операторы и ручную обработку.",
+    quote: "Доставка растёт, но прибыль не растёт вместе с ней",
+    person: "Владимир Марьясов",
+    role: "владелец ресторана доставки ТиЧ Пицца",
+  },
+];
+
+const PRODUCT_POINTS = [
+  {
+    title: "Удобный прием заказов",
+    text: "Через сайт, мобильное приложение, зал, агрегаторы доставки или звонок оператору",
   },
   {
+    title: "Гость отслеживает этапы",
+    text: "Клиент видит в реальном времени весь путь заказа без участия колл-центра",
+  },
+  {
+    title: "Точное время доставки",
+    text: "Рассчитаем и сообщим до минуты, когда привезем заказ",
+  },
+  {
+    title: "Одна система с неограниченным количеством доступов",
+    text: "Контролируйте меню, сайт и мобильное приложение, работу кухни, товарооборот, маркетинг и многое другое",
+  },
+  {
+    title: "Удаленное управление всем бизнесом",
+    text: "Работайте с поварами, курьерами, администраторами и заказами, где бы вы ни находились",
+  },
+  {
+    title: "Контроль всех показателей ресторана онлайн",
+    text: "За всеми изменениями можно оперативно следить через дашборд и настроить уведомления в чат-бот",
+  },
+];
+
+const SHIFTS = [
+  { title: "Время доставки", before: "до ~87 мин", after: "после ~51 мин", delta: "−40%" },
+  { title: "Приготовление заказа", before: "до ~60 мин", after: "после ~32 мин", delta: "−47%" },
+  {
+    title: "Доля заказов через приложение",
+    before: "до 27%",
+    after: "после 68%",
+    delta: "+41%",
+  },
+];
+
+const REVIEWS = [
+  {
+    result: "−17% скрытых расходов",
     quote:
-      "Оборот компании за год вырос в 3 раза благодаря маршрутизации заказов. Мы сократили время доставки и увеличили производительность кухни",
-    result: "x3 выручка за год",
+      "При выборе платформы смотрели не только на цену, но и на то, как она влияет на стратегию. Нам нужна была система, которая позволит расти, а не ставить нас в зависимость от подрядчиков",
+    person: "Регина Васина",
+    company: "Sayori",
+  },
+  {
+    result: "+40% заказов",
+    quote: "Собственное приложение за год увеличило количество заказов через мобильное приложение на 40%",
+    person: "Владимир Расторгуев",
+    company: "СушиСелл",
+  },
+  {
+    result: "x3 выручка",
+    quote:
+      "Оборот компании за год вырос в 3 раза благодаря маршрутизации заказов. Мы сократили время доставки и увеличили производительность кухни.",
     person: "Валентина Мухачева",
     company: "FoodGarden",
   },
-];
-
-const MODULES = [
   {
-    title: "Приём заказа",
-    text: "Сайт, приложение, колл-центр с определением номера по АТС, агрегаторы — в одном контуре.",
+    result: "",
+    quote:
+      "Автоматическое распределение курьеров убрало ручные звонки диспетчера и минимизировало человеческий фактор. Расходы на логистику снизились уже в первый месяц",
+    person: "Дмитрий Инякин",
+    company: "Неместные",
   },
   {
-    title: "Меню и стоп-листы",
-    text: "Управление в ERP, автоматическая выгрузка на все каналы, уведомление в Telegram.",
+    result: "",
+    quote:
+      "Раньше коммуникация с гостями была на стороне подрядчиков — теперь мы выстроили её внутри компании и управляем ею сами",
+    person: "Виктория Беляйкина",
+    company: "Суши Шеф",
   },
   {
-    title: "Работа кухни",
-    text: "Слоты по 15 минут, графики смен, отметка по штрих-коду или отпечатку.",
+    result: "",
+    quote:
+      "Я думаю, еще 10% не разобрал от всей программы. Я до сих пор нахожусь под впечатлением от такого огромного функционала и возможностей этой программы!",
+    person: "Андрей",
+    company: "Владелец",
   },
   {
-    title: "Автомаршрутизация",
-    text: "Учёт типа курьера и его местоположения, маршрут в обе стороны, распределение без диспетчера.",
+    result: "",
+    quote:
+      "Легкий переход на систему. Наш опыт смены более 3 систем автоматизации позволил оценить легкий и комфортный переход на Goulash.tech. Благодаря интеграциям и возможности загрузить данные, которые были у нас, мы смогли быстро подключиться и сохранить наших клиентов.",
+    person: "Александр Невский",
+    company: "Управляющий директор",
   },
   {
-    title: "Приложение курьера",
-    text: "Push о готовом заказе, адрес после забора, маршрут и статусы.",
-  },
-  {
-    title: "Статус для гостя",
-    text: "Этапы готовности, курьер на карте, автоуведомление при задержке.",
-  },
-  {
-    title: "Контроль смены",
-    text: "KPI на главном экране, сравнение точек между собой, разбор отклонений.",
-  },
-  {
-    title: "Лояльность и база",
-    text: "Бонусы, промокоды, RFM-сегменты, тепловая карта заказов, дни рождения гостей.",
-  },
-  {
-    title: "Своё приложение",
-    text: "Гостевое приложение и сайт под вашим брендом без своей команды разработки.",
+    result: "до 10 минут в каждом заказе",
+    quote:
+      "Убрали подтверждение заказов через телефон - экономия до 10 минут в каждом заказе,без расходов на смс.",
+    person: "Ирина Кудрявцева",
+    company: "Владелица компании",
   },
 ];
 
-const STEPS = [
+const PLACES = [
+  "СушиСелл",
+  "Sayori",
+  "ТиЧ Пицца",
+  "FoodGarden",
+  "Неместные",
+  "Суши Шеф",
+];
+
+const TARIFFS = [
   {
-    step: "01",
-    title: "Разбор смены",
-    time: "1 день",
-    text: "Смотрим поток, каналы заказов, курьеров и кассу. Считаем, где именно уходят минуты и деньги.",
+    title: "Интеграция",
+    value: "20 000 ₽",
+    text: "Стоимость интеграции Goulash.Tech едина для всех тарифов, платеж единоразовый.",
   },
   {
-    step: "02",
-    title: "Настройка и перенос",
-    time: "до 14 дней",
-    text: "Меню, зоны и тарифы доставки, база гостей, интеграция с вашей POS. Всё делает партнёр в вашем городе.",
+    title: "Оборот менее 4 000 000 ₽",
+    value: "40 000 ₽",
+    text: "При обороте менее 4 000 000 ₽.",
   },
   {
-    step: "03",
-    title: "Первые смены",
-    time: "до 7 дней",
-    text: "Обучаем администраторов и курьеров, партнёр рядом в первые вечера, дальше смена идёт сама.",
+    title: "Оборот более 4 000 000 ₽",
+    value: "1%",
+    text: "При обороте в месяц более 4 000 000 ₽. Наполнение системы — 50 000 ₽. Брендирование статичных страниц — от 9 000 ₽.",
   },
 ];
 
@@ -152,7 +214,6 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-
       <main id="top">
         <section className="relative overflow-hidden">
           <div
@@ -160,89 +221,53 @@ export default function Home() {
             className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-cyan-accent/12 blur-[140px]"
           />
           <div className="shell relative pt-14 pb-16 sm:pt-20 sm:pb-24">
-            <p className="inline-flex items-center gap-2 rounded-full border border-ink-line px-4 py-2 text-sm text-white/60">
-              <span aria-hidden className="size-2 rounded-full bg-cyan-accent" />
-              Для служб доставки со своей курьеркой · 150–400 заказов в день
-            </p>
-
-            <h1 className="mt-7 max-w-4xl text-display font-extrabold leading-[0.95] tracking-tight">
-              Вся смена —
-              <br />
-              <span className="text-cyan-accent">в одном экране</span>
+            <LogoHorizontal className="h-9 w-auto sm:h-11" />
+            <h1 className="mt-8 max-w-4xl text-display font-extrabold leading-[0.95] tracking-tight">
+              +3 млн ₽ дополнительной выручки в год на точку
             </h1>
-
             <p className="mt-6 max-w-2xl text-lg text-white/65 sm:text-xl">
-              Goulash.tech заменяет пять сервисов и ручную диспетчеризацию одной
-              экосистемой: приём заказа, кухня, курьеры. Переход — 21 день, внедряет партнёр
-              в вашем городе.
+              Больше заказов, быстрее доставка, меньше потерь и выше возвращаемость гостей
             </p>
-
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#lead"
-                className="inline-flex items-center justify-center rounded-full bg-cyan-accent px-7 py-4 text-base font-semibold text-ink transition-colors hover:bg-cyan-300"
+                className="inline-flex items-center justify-center rounded-full bg-cyan-accent px-7 py-4 text-center text-base font-semibold text-ink transition-colors hover:bg-cyan-300"
               >
-                Разобрать мою смену
+                Узнать, как Goulash.tech поможет моему ресторану доставки
               </a>
               <a
-                href="#demo"
+                href="#product"
                 className="inline-flex items-center justify-center rounded-full border border-ink-line px-7 py-4 text-base font-semibold text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
               >
-                Посмотреть демо смены
+                Смотреть продукт
               </a>
             </div>
-
             <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-4">
               {HERO_FACTS.map((fact) => (
                 <div key={fact.label} className="bg-ink p-5">
-                  <dt className="text-2xl font-bold text-cyan-accent tnum sm:text-3xl">
-                    {fact.value}
-                  </dt>
+                  <dt className="text-2xl font-bold text-cyan-accent tnum sm:text-3xl">{fact.value}</dt>
                   <dd className="mt-1 text-sm text-white/50">{fact.label}</dd>
                 </div>
               ))}
             </dl>
+            <p className="mt-4 text-sm text-white/40">4,8 — средняя оценка пользователей приложения</p>
           </div>
         </section>
 
-        <Section id="pain">
-          <SectionLabel>Ваша смена сегодня</SectionLabel>
+        <Section id="growth">
+          <SectionLabel>Источники роста выручки</SectionLabel>
           <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            18:40. Двенадцать заказов, пять курьеров, и вся логика смены — в голове
-            диспетчера
+            Каждая функция Goulash существует только по одной причине — приблизить рестораны доставки к
+            росту выручки
           </h2>
-          <p className="mt-5 max-w-2xl text-white/60">
-            Утром вы считаете не выручку, а отмены. Вот как это выглядит по ролям.
-          </p>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {PAIN.map((item) => (
-              <article
-                key={item.role}
-                className="rounded-2xl border border-ink-line bg-ink-soft p-6"
-              >
-                <p className="text-sm uppercase tracking-wider text-white/40">{item.role}</p>
-                <p className="mt-3 text-white/80">{item.text}</p>
-                <p className="mt-5 inline-block rounded-lg bg-[#ff6b6b]/12 px-3 py-1.5 text-sm font-medium text-[#ff6b6b]">
-                  {item.cost}
-                </p>
-              </article>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="roles">
-          <SectionLabel>Что меняет Гуляш</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Одна смена. Три роли. Один экран
-          </h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {ROLE_SOLUTION.map((block) => (
-              <article
-                key={block.role}
-                className="rounded-2xl border border-ink-line bg-ink-soft p-6"
-              >
-                <h3 className="text-lg font-semibold text-cyan-accent">{block.role}</h3>
-                <ul className="mt-4 space-y-3">
+          <p className="mt-5 text-white/60">Отраслевая экспертиза в основе решения.</p>
+          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+            {GROWTH.map((block) => (
+              <article key={block.kicker} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+                <p className="text-sm text-white/45">{block.kicker}</p>
+                <p className="mt-3 text-3xl font-bold text-cyan-accent tnum">{block.value}</p>
+                <p className="text-white/70">{block.label}</p>
+                <ul className="mt-4 space-y-2">
                   {block.items.map((item) => (
                     <li key={item} className="flex gap-3 text-white/70">
                       <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-cyan-accent" />
@@ -252,62 +277,92 @@ export default function Home() {
                 </ul>
               </article>
             ))}
+            <article className="rounded-2xl border border-cyan-accent/40 bg-cyan-accent/5 p-6">
+              <p className="text-sm text-white/45">Результат, который опережает рынок</p>
+              <p className="mt-3 text-white/80">
+                Рост бизнеса — главный показатель эффективности. +29% рост выручки клиентов год к году. На
+                7,1% выше рыночного показателя.
+              </p>
+              <dl className="mt-6 grid grid-cols-3 gap-3">
+                <div>
+                  <dt className="text-2xl font-bold tnum">+21%</dt>
+                  <dd className="mt-1 text-xs text-white/45">Средний рост выручки по рынку (РБК)</dd>
+                </div>
+                <div>
+                  <dt className="text-2xl font-bold text-cyan-accent tnum">+7.1%</dt>
+                  <dd className="mt-1 text-xs text-white/45">Выше рынка с Goulash.tech</dd>
+                </div>
+                <div>
+                  <dt className="text-2xl font-bold text-cyan-accent tnum">+29%</dt>
+                  <dd className="mt-1 text-xs text-white/45">Рост выручки клиентов год к году</dd>
+                </div>
+              </dl>
+              <p className="mt-5 text-sm text-white/40">* — по данным РБК</p>
+              <p className="mt-2 text-sm text-white/55">Станислав Никифоров, коммерческий директор Goulash.tech</p>
+            </article>
           </div>
         </Section>
 
-        <Section id="demo">
-          <SectionLabel>Демо продукта</SectionLabel>
-          <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-            <h2 className="max-w-2xl text-h2 font-bold leading-tight">
-              Переключите смену и посмотрите, что меняется
-            </h2>
-            <p className="max-w-md text-white/60">
-              Тумблер режима, роли и типы курьеров пересчитывают распределение, ETA и KPI
-              смены прямо на экране.
-            </p>
+        <Section id="fit">
+          <SectionLabel>Кому подходит Goulash.tech</SectionLabel>
+          <div className="grid gap-4 lg:grid-cols-3">
+            {FIT.map((item) => (
+              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+                <h3 className="text-lg font-semibold">{item.title}</h3>
+                <p className="mt-3 text-white/65">{item.text}</p>
+                <blockquote className="mt-5 text-white/85">«{item.quote}»</blockquote>
+                <p className="mt-4 font-medium">{item.person}</p>
+                <p className="text-sm text-white/45">{item.role}</p>
+              </article>
+            ))}
           </div>
-          <ShiftDemo />
-        </Section>
-
-        <Section id="numbers">
-          <SectionLabel>Результат</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            +29% выручки клиентов год к году — на 7,1% выше рынка
-          </h2>
-          <p className="mt-5 max-w-2xl text-white/60">
-            Средний рост рынка доставки — +21% (данные РБК). Клиенты Goulash.tech растут
-            быстрее, потому что смена перестаёт терять заказы.
+          <p className="mt-8 max-w-3xl text-lg text-white/70">
+            Goulash.tech идеально подходит под кухни с циклом приготовления до 30 минут
           </p>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-3">
-            {NUMBERS.map((item) => (
-              <div key={item.label} className="bg-ink p-6">
-                <p className="text-3xl font-bold text-cyan-accent tnum">{item.value}</p>
-                <p className="mt-2 text-white/55">{item.label}</p>
+        </Section>
+
+        <Section id="product">
+          <SectionLabel>Goulash.tech для сетей доставки</SectionLabel>
+          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
+            Единая система управления операционными процессами в доставке: от первого заказа до доставки к
+            гостю и повторных заказов
+          </h2>
+          <div className="mt-10">
+            <ProductScreens />
+          </div>
+          <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-3">
+            {PRODUCT_POINTS.map((point) => (
+              <div key={point.title} className="bg-ink p-6">
+                <h3 className="font-semibold">{point.title}</h3>
+                <p className="mt-2 text-sm text-white/55">{point.text}</p>
               </div>
             ))}
           </div>
-          <p className="mt-5 text-xs text-white/30">
-            Показатели и цитаты — с сайта goulash.tech и из открытых источников. Данные внутри
-            демо смены демонстрационные.
-          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {SHIFTS.map((item) => (
+              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm text-white/45">{item.before}</p>
+                <p className="text-sm text-white/70">{item.after}</p>
+                <p className="mt-3 text-2xl font-bold text-cyan-accent tnum">{item.delta}</p>
+              </article>
+            ))}
+          </div>
         </Section>
 
-        <Section id="cases">
-          <SectionLabel>Такие же владельцы</SectionLabel>
-          <div className="grid gap-4 lg:grid-cols-3">
-            {CASES.map((item) => (
-              <figure
-                key={item.person}
-                className="flex flex-col justify-between rounded-2xl border border-ink-line bg-ink-soft p-6"
-              >
-                <blockquote className="text-lg leading-snug text-white/85">
-                  «{item.quote}»
-                </blockquote>
-                <figcaption className="mt-6">
-                  <p className="inline-block rounded-lg bg-cyan-accent/12 px-3 py-1.5 text-sm font-semibold text-cyan-accent">
+        <Section id="reviews">
+          <SectionLabel>Что говорят клиенты</SectionLabel>
+          <div className="grid gap-4 md:grid-cols-2">
+            {REVIEWS.map((item) => (
+              <figure key={item.person + item.company} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+                {item.result && (
+                  <p className="mb-4 inline-block rounded-lg bg-cyan-accent/12 px-3 py-1.5 text-sm font-semibold text-cyan-accent">
                     {item.result}
                   </p>
-                  <p className="mt-3 font-medium">{item.person}</p>
+                )}
+                <blockquote className="text-lg leading-snug text-white/85">«{item.quote}»</blockquote>
+                <figcaption className="mt-5">
+                  <p className="font-medium">{item.person}</p>
                   <p className="text-sm text-white/45">{item.company}</p>
                 </figcaption>
               </figure>
@@ -315,118 +370,62 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section id="modules">
-          <SectionLabel>Что входит</SectionLabel>
+        <Section id="geo">
+          <SectionLabel>Работаем по всей России</SectionLabel>
           <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Девять модулей, которые закрывают вечер
+            Карта успешных заведений, уже внедривших Гуляш
           </h2>
-          <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-3">
-            {MODULES.map((module) => (
-              <div key={module.title} className="bg-ink p-6">
-                <h3 className="font-semibold">{module.title}</h3>
-                <p className="mt-2 text-sm text-white/55">{module.text}</p>
-              </div>
+          <p className="mt-5 max-w-2xl text-white/60">
+            150+ городов с автоматизированной доставкой. 900+ точек подключено к системе.
+          </p>
+          <ul className="mt-8 flex flex-wrap gap-2">
+            {PLACES.map((place) => (
+              <li key={place} className="rounded-full border border-ink-line px-4 py-2 text-sm">
+                {place}
+              </li>
             ))}
-          </div>
+          </ul>
+          <p className="mt-8 text-white/55">
+            Goulash.Tech осуществляет настройку программ автоматизации для ресторанов online
+          </p>
+          <p className="mt-2 text-sm text-white/40">Главный офис: Екатеринбург, Куйбышева, 41</p>
         </Section>
 
-        <Section id="migration">
-          <SectionLabel>Переход</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            21 день. Три шага. Партнёр рядом
-          </h2>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {STEPS.map((item) => (
-              <article
-                key={item.step}
-                className="rounded-2xl border border-ink-line bg-ink-soft p-6"
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="text-4xl font-extrabold text-cyan-accent/25 tnum">
-                    {item.step}
-                  </span>
-                  <span className="rounded-lg border border-ink-line px-2.5 py-1 text-xs text-white/50">
-                    {item.time}
-                  </span>
-                </div>
-                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+        <Section id="price">
+          <SectionLabel>Тарифы</SectionLabel>
+          <h2 className="max-w-3xl text-h2 font-bold leading-tight">У нас есть 2 тарифных плана</h2>
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {TARIFFS.map((item) => (
+              <article key={item.title} className="rounded-2xl border border-ink-line bg-ink-soft p-6">
+                <p className="text-sm uppercase tracking-wider text-white/40">{item.title}</p>
+                <p className="mt-3 text-3xl font-bold tnum">{item.value}</p>
                 <p className="mt-2 text-white/60">{item.text}</p>
               </article>
             ))}
           </div>
         </Section>
 
-        <Section id="price">
-          <SectionLabel>Сколько стоит</SectionLabel>
-          <h2 className="max-w-3xl text-h2 font-bold leading-tight">
-            Цена привязана к обороту, а не к числу модулей
-          </h2>
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            <div className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-              <p className="text-sm uppercase tracking-wider text-white/40">Интеграция</p>
-              <p className="mt-3 text-3xl font-bold tnum">20 000 ₽</p>
-              <p className="mt-2 text-white/55">
-                Единоразово, одинаково для всех тарифов: подключение, настройка, перенос
-                данных.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-cyan-accent/50 bg-cyan-accent/5 p-6">
-              <p className="text-sm uppercase tracking-wider text-cyan-accent">
-                Оборот до 4 млн ₽ в месяц
-              </p>
-              <p className="mt-3 text-3xl font-bold tnum">40 000 ₽ / мес</p>
-              <p className="mt-2 text-white/60">
-                Фиксированный платёж со всеми модулями смены: приём заказа, кухня,
-                маршрутизация, лояльность.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-ink-line bg-ink-soft p-6">
-              <p className="text-sm uppercase tracking-wider text-white/40">
-                Оборот больше 4 млн ₽
-              </p>
-              <p className="mt-3 text-3xl font-bold tnum">1% от оборота</p>
-              <p className="mt-2 text-white/55">
-                Платите пропорционально росту. Наполнение системы силами партнёра — 50 000 ₽,
-                брендирование страниц — от 9 000 ₽.
-              </p>
-            </div>
-          </div>
-          <p className="mt-5 text-xs text-white/30">
-            Тарифы приведены по опубликованному прайсу партнёра Goulash.tech и могут
-            отличаться в вашем городе.
-          </p>
-        </Section>
-
         <Section id="faq">
-          <SectionLabel>Вопросы</SectionLabel>
+          <SectionLabel>Вопросы и ответы</SectionLabel>
           <h2 className="mb-8 max-w-3xl text-h2 font-bold leading-tight">
-            Что спрашивают перед переходом
+            Отвечаем на самые популярные вопросы
           </h2>
           <Faq />
         </Section>
 
         <Section id="lead">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
             <div>
-              <SectionLabel>Заявка</SectionLabel>
-              <h2 className="text-h2 font-bold leading-tight">Разберём вашу смену</h2>
+              <LogoStacked className="h-16 w-auto" />
+              <h2 className="mt-6 text-h2 font-bold leading-tight">
+                Узнать, как Goulash.tech поможет моему ресторану доставки
+              </h2>
               <p className="mt-5 text-white/60">
-                Двадцать минут разговора: поток заказов, каналы, курьеры, касса. Покажем на
-                ваших цифрах, сколько минут и денег забирает ручная диспетчеризация, и назовём
-                стоимость по вашему обороту.
+                Наш специалист проконсультирует вас по запуску платформы с учетом особенностей вашего
+                бизнеса.
               </p>
-              <ul className="mt-7 space-y-3 text-white/70">
-                {[
-                  "Отвечает партнёр в вашем городе, не колл-центр",
-                  "Без презентаций: сразу разбор вечернего часа-пика",
-                  "План перехода с датами и ответственными",
-                ].map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span aria-hidden className="mt-2 size-1.5 shrink-0 bg-cyan-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <p className="mt-6 text-sm text-white/45">Тех. поддержка 24/7: +7 (391) 226-92-02</p>
+              <p className="text-sm text-white/45">+7 495 868-36-08 · info@goulash.tech</p>
             </div>
             <LeadForm />
           </div>
@@ -435,35 +434,36 @@ export default function Home() {
         <footer className="border-t border-ink-line py-12">
           <div className="shell flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <Logo />
-              <p className="mt-4 max-w-sm text-sm text-white/45">
-                SaaS-платформа для ресторанов и служб доставки: приём заказа, кухня,
-                маршрутизация, лояльность и аналитика в одном контуре.
-              </p>
-              <p className="mt-4 text-sm text-white/45">
-                Одна смена. Три роли. Один экран. Подключайтесь.
+              <LogoHorizontal className="h-8 w-auto" />
+              <p className="mt-4 max-w-md text-sm text-white/45">
+                Goulash.tech — компания, которая помогает ресторанам расти. Развивающая систему роста для
+                ресторанов доставки. Основанная на многолетнем опыте управления собственной ресторанной
+                сетью Goulash.tech помогает более чем 900 ресторанам увеличивать выручку, управляя всей
+                цепочкой доставки — от первого клика до повторного заказа.
               </p>
             </div>
             <div className="text-sm text-white/45">
-              <p className="mb-2 uppercase tracking-wider text-white/30">Контакты</p>
               <p>+7 495 868-36-08</p>
               <p>info@goulash.tech</p>
-              <p className="mt-2">Екатеринбург, Куйбышева, 41</p>
+              <p className="mt-2">Главный офис: Екатеринбург, Куйбышева, 41</p>
+              <p className="mt-2">info@cyber-nevod.ru</p>
             </div>
-            <p className="max-w-xs text-xs text-white/30">
-              Тестовый лендинг под один сегмент: служба доставки со своей курьеркой. Форма
-              заявки — мок, данные демо-смены придуманы. Цифры и цитаты — с goulash.tech и из
-              открытых источников.
+            <p className="max-w-sm text-xs text-white/30">
+              SaaS-платформа Goulash Tech — сервис автоматизации ресторанной доставки. Общество с
+              ограниченной ответственностью «Мне бы в космос» является обладателем исключительных прав на
+              программу, право использования программы предоставляется на основании лицензионного договора,
+              ИНН 6678119318, 620027, Свердловская область, г. Екатеринбург, ул. Челюскинцев, д. 60, кв. 60.
+              ОКВЭД 62.01. Разработка компьютерного программного обеспечения. Коды видов деятельности в
+              области информационных технологий: 1.01, 2.01.
             </p>
           </div>
         </footer>
       </main>
-
       <a
         href="#lead"
         className="fixed inset-x-4 bottom-4 z-40 rounded-full bg-cyan-accent py-3.5 text-center text-base font-semibold text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
       >
-        Разобрать смену
+        Хочу Гуляш
       </a>
     </>
   );

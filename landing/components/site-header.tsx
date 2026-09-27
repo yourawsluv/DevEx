@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Logo } from "./brand";
+import { LogoMark } from "./brand";
 
 const NAV = [
-  { href: "#demo", label: "Демо смены" },
-  { href: "#numbers", label: "Цифры" },
-  { href: "#modules", label: "Что входит" },
-  { href: "#price", label: "Сколько стоит" },
+  { href: "#growth", label: "Рост выручки" },
+  { href: "#product", label: "Продукт" },
+  { href: "#reviews", label: "Отзывы" },
+  { href: "#geo", label: "География" },
   { href: "#faq", label: "Вопросы" },
 ];
 
@@ -30,8 +30,8 @@ export function SiteHeader() {
       }`}
     >
       <div className="shell flex h-16 items-center justify-between gap-6">
-        <a href="#top" className="shrink-0">
-          <Logo />
+        <a href="#top" className="shrink-0" aria-label="Goulash.tech">
+          <LogoMark />
         </a>
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV.map((item) => (
@@ -48,7 +48,7 @@ export function SiteHeader() {
           href="#lead"
           className="rounded-full bg-cyan-accent px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-cyan-300 sm:px-5"
         >
-          Разобрать смену
+          Хочу Гуляш
         </a>
       </div>
     </header>
