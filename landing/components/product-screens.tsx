@@ -49,7 +49,7 @@ const KITCHEN_ORDERS: { id: string; wait: string; kind: Kitchen; status: OrderSt
   { id: "0016", wait: "2 мин", kind: "Доставка", status: "новый" },
 ];
 
-const STATUS_CYCLE = ["готовится", "сборка", "отдача"] as const;
+const PREP_TIMES = ["12 мин", "6 мин", "1 мин"] as const;
 
 const STOPS: {
   id: string;
@@ -155,7 +155,7 @@ export function ProductScreens() {
     <div ref={track} className="relative h-[300svh]">
       <div className="sticky top-14 z-20 flex h-[calc(100svh-3.5rem)] flex-col">
         <p className="shrink-0 px-4 pt-4 text-center text-sm text-paper/55 sm:pt-6">
-          <MorphSwap text={CAPTION[role]} />
+          <MorphSwap variant="glide" text={CAPTION[role]} />
         </p>
 
         <div className="flex min-h-0 flex-1 items-center justify-center px-4 py-3">
@@ -316,7 +316,7 @@ function RestaurantScreen({
           </div>
           <div className="min-h-0 flex-1 overflow-auto p-3">
             <p className="text-sm font-medium">
-              <MorphSwap text={section} />
+              <MorphSwap variant="spring" text={section} />
             </p>
             <div key={section} className="screen-swap mt-3">
               <RestaurantPanel
@@ -469,7 +469,13 @@ function LiveOrder() {
     <div className="mt-2 flex items-center gap-2 rounded-full bg-[#111] px-3 py-1.5 text-white">
       <LiveDot />
       <span className="text-[11px] tnum">№0002</span>
-      <MorphCycle lines={STATUS_CYCLE} interval={1700} className="text-[11px] text-[#c8fffb]" />
+      <span className="text-[11px] text-[#c8fffb]">готовится</span>
+      <MorphCycle
+        variant="numbers"
+        lines={PREP_TIMES}
+        interval={1600}
+        className="text-[11px] text-white"
+      />
     </div>
   );
 }

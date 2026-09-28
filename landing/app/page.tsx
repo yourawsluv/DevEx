@@ -307,7 +307,7 @@ export default function Home() {
                 <LogoHorizontal className="h-8 w-auto sm:h-10" />
               </div>
               <p className="col-span-12 mt-10 max-w-[28ch] text-sm leading-snug text-paper/45 sm:mt-14 lg:col-span-5 lg:col-start-8 lg:mt-0 lg:max-w-none lg:text-right lg:text-base">
-                <MorphCycle lines={HERO_CYCLE} interval={4200} />
+                <MorphCycle variant="spring" lines={HERO_CYCLE} interval={4200} />
               </p>
             </div>
 
@@ -482,7 +482,7 @@ export default function Home() {
             {FIT.map((item) => (
               <article
                 key={item.title}
-                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
+                className={`point-block col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="text-h3">{item.title}</h3>
@@ -500,7 +500,7 @@ export default function Home() {
           <p className="mt-24 text-[clamp(1.2rem,4.2vw,4.15rem)] font-medium leading-[1.02] tracking-[-0.035em]">
             <span className="block whitespace-nowrap">Goulash.tech идеально подходит</span>
             <span className="block whitespace-nowrap">
-              <MorphCycle lines={FIT_CYCLE} interval={3800} />
+              <MorphCycle variant="glide" lines={FIT_CYCLE} interval={3800} />
             </span>
           </p>
         </Section>
@@ -529,7 +529,7 @@ export default function Home() {
             {PRODUCT_POINTS.map((point) => (
               <div
                 key={point.title}
-                className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+                className={`point-block col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="text-h3">{point.title}</h3>
@@ -573,11 +573,12 @@ export default function Home() {
               </>
             }
           />
-          <div className="grid12 mt-20 gap-y-16">
+          <div className="mt-20 overflow-x-auto overscroll-x-contain pb-4 snap-x snap-mandatory [scrollbar-width:thin]">
+            <div className="flex w-max items-stretch gap-[clamp(1.5rem,2.5vw,2.75rem)]">
             {REVIEWS.map((item) => (
               <figure
                 key={item.person + item.company}
-                className={`col-span-12 flex flex-col sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
+                className={`flex w-[calc(100vw-4.75rem)] shrink-0 snap-start flex-col sm:w-[28rem] lg:w-[32rem] ${CELL}`}
               >
                 <div className="flex h-8 items-center">
                   {item.logo ? (
@@ -607,7 +608,7 @@ export default function Home() {
                 </figcaption>
               </figure>
             ))}
-            <div aria-hidden className="hidden lg:col-span-4 lg:block" />
+            </div>
           </div>
         </Section>
 
