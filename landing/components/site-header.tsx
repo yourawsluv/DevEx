@@ -30,16 +30,16 @@ export function SiteHeader() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <div className="shell flex h-20 items-center justify-between gap-8">
+      <div className="shell flex h-14 items-center justify-between gap-6">
         <a href="#top" className="shrink-0" aria-label="Goulash.tech">
-          <LogoMark />
+          <LogoMark className="size-7" />
         </a>
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-white/60 transition-colors hover:text-cyan-accent"
+              className="text-sm text-paper/60 transition-colors hover:text-cyan-accent"
             >
               {item.label}
             </a>
@@ -47,7 +47,7 @@ export function SiteHeader() {
         </nav>
         <a
           href="#lead"
-          className="btn bg-cyan-accent px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cyan-300"
+          className="btn bg-cyan-fill px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-cyan-fill-hover"
         >
           Хочу Гуляш
         </a>

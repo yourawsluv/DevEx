@@ -8,9 +8,24 @@ import {
 } from "@/components/brand";
 import { Faq } from "@/components/faq";
 import { LeadForm } from "@/components/lead-form";
+import { MorphCycle } from "@/components/motion-text";
+import { PointIcon, type PointIconName } from "@/components/point-icons";
 import { ProductScreens } from "@/components/product-screens";
+import { RussiaMap } from "@/components/russia-map";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+
+const HERO_CYCLE = [
+  "Система автоматизации\nдля ресторанов доставки",
+  "Кухня, курьеры и гости\nв одном рабочем контуре",
+  "От заказа на сайте\nдо повторного гостя",
+] as const;
+
+const FIT_CYCLE = [
+  "под кухни с циклом до 30 минут",
+  "под быстрые кухни до 30 минут",
+  "сетям с циклом готовки 30 минут",
+] as const;
 
 const CLIENT_LOGOS = [
   { src: "/clients/up-sushi.svg", alt: "UP SUSHI" },
@@ -102,8 +117,16 @@ const MARKET = [
   { value: "+29%", unit: "Рост выручки клиентов год к году", accent: true },
 ];
 
-const FIT = [
+const FIT: {
+  icon: PointIconName;
+  title: string;
+  text: string;
+  quote: string;
+  person: string;
+  role: string;
+}[] = [
   {
+    icon: "scale",
     title: "Нужен управляемый масштаб",
     text: "Мы хотим открывать новые точки, контролировать партнёров, стандарты и качество доставки без хаоса в процессах.",
     quote: "Я не видел всю сеть в одном контуре и не понимал, где проседает качество",
@@ -111,6 +134,7 @@ const FIT = [
     role: "владелец сети ресторанов СушиСелл",
   },
   {
+    icon: "break",
     title: "Система ломается на масштабе",
     text: "У нас своя курьерская служба, несколько кухонных потоков, 200+ заказов в день на точку, а текущая связка уже не справляется.",
     quote: "Я тушила пожары каждый день, но не понимала, где теряю деньги",
@@ -118,6 +142,7 @@ const FIT = [
     role: "владелец сети доставок Сайори",
   },
   {
+    icon: "margin",
     title: "Уперлись в рост и агрегаторы",
     text: "Заказы есть, но маржа уходит в комиссии, операторы и ручную обработку.",
     quote: "Доставка растёт, но прибыль не растёт вместе с ней",
@@ -126,29 +151,35 @@ const FIT = [
   },
 ];
 
-const PRODUCT_POINTS = [
+const PRODUCT_POINTS: { icon: PointIconName; title: string; text: string }[] = [
   {
+    icon: "orders",
     title: "Удобный прием заказов",
     text: "Через сайт, мобильное приложение, зал, агрегаторы доставки или звонок оператору",
   },
   {
+    icon: "track",
     title: "Гость отслеживает этапы",
     text: "Клиент видит в реальном времени весь путь заказа без участия колл-центра",
   },
   {
+    icon: "time",
     title: "Точное время доставки",
     text: "Рассчитаем и сообщим до минуты, когда привезем заказ",
   },
   {
-    title: "Одна система с неограниченным количеством доступов",
+    icon: "access",
+    title: "Одна система, доступы без лимита",
     text: "Контролируйте меню, сайт и мобильное приложение, работу кухни, товарооборот, маркетинг и многое другое",
   },
   {
-    title: "Удаленное управление всем бизнесом",
+    icon: "remote",
+    title: "Удаленное управление бизнесом",
     text: "Работайте с поварами, курьерами, администраторами и заказами, где бы вы ни находились",
   },
   {
-    title: "Контроль всех показателей ресторана онлайн",
+    icon: "metrics",
+    title: "Показатели ресторана онлайн",
     text: "За всеми изменениями можно оперативно следить через дашборд и настроить уведомления в чат-бот",
   },
 ];
@@ -267,43 +298,44 @@ export default function Home() {
           <span aria-hidden className="gridlines mx-auto max-w-[92rem]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-48 left-1/4 h-[520px] w-[760px] rounded-full bg-cyan-accent/10 blur-[150px]"
+            className="pointer-events-none absolute -top-48 left-1/4 h-[520px] w-[760px] rounded-full bg-cyan-fill/10 blur-[150px]"
           />
-          <div className="shell relative pt-16 pb-14 sm:pt-24 lg:pt-28 lg:pb-20">
+          <div className="shell relative pt-12 pb-14 sm:pt-16 lg:pt-20 lg:pb-20">
             <div className="grid12">
               <div className="col-span-12 lg:col-span-6">
                 <LogoHorizontal className="h-8 w-auto sm:h-10" />
               </div>
-              <p className="col-span-12 mt-10 max-w-[30ch] text-sm leading-snug text-white/45 sm:mt-14 lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right lg:text-base">
-                Система автоматизации
-                <br />
-                для ресторанов доставки
+              <p className="col-span-12 mt-10 max-w-[28ch] text-sm leading-snug text-paper/45 sm:mt-14 lg:col-span-5 lg:col-start-8 lg:mt-0 lg:max-w-none lg:text-right lg:text-base">
+                <MorphCycle lines={HERO_CYCLE} interval={4200} />
               </p>
             </div>
 
-            <div className="grid12 mt-14 sm:mt-20 lg:mt-28">
-              <h1 className="col-span-12 text-display leading-[0.92] lg:col-span-10">
-                +3 млн ₽ дополнительной выручки в год на точку
-                <span aria-hidden className="align-top text-[0.4em] text-cyan-accent">
-                  *
+            <div className="grid12 mt-14 sm:mt-20 lg:mt-24">
+              <h1 className="col-span-12 font-medium leading-[0.98] tracking-[-0.035em] text-[clamp(1.45rem,4.35vw,4.35rem)]">
+                <span className="block whitespace-nowrap">+3 млн ₽ дополнительной</span>
+                <span className="block whitespace-nowrap">
+                  выручки в год на точку
+                  <span aria-hidden className="align-top text-[0.45em] text-cyan-accent">
+                    *
+                  </span>
                 </span>
               </h1>
             </div>
 
             <div className="grid12 mt-12 items-end gap-y-10 sm:mt-16">
-              <p className="col-span-12 text-lede leading-snug text-white/60 sm:col-span-8 lg:col-span-5">
+              <p className="col-span-12 text-lede leading-snug text-paper/60 sm:col-span-8 lg:col-span-5">
                 Больше заказов, быстрее доставка, меньше потерь и выше возвращаемость гостей
               </p>
               <div className="col-span-12 flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:col-start-7">
                 <a
                   href="#lead"
-                  className="btn inline-flex items-center justify-center bg-cyan-accent px-7 py-4 text-base font-medium text-ink transition-colors hover:bg-cyan-300"
+                  className="btn inline-flex items-center justify-center bg-cyan-fill px-7 py-4 text-base font-medium text-black transition-colors hover:bg-cyan-fill-hover"
                 >
                   Обсудить за 15 минут
                 </a>
                 <a
                   href="#product"
-                  className="btn inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                  className="btn inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-paper transition-colors hover:border-cyan-accent hover:text-cyan-accent"
                 >
                   Смотреть продукт
                 </a>
@@ -336,7 +368,7 @@ export default function Home() {
                 className={`col-span-6 sm:col-span-4 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
                 <dt className="figure text-figure text-cyan-accent">{fact.value}</dt>
-                <dd className="mt-4 max-w-[24ch] text-sm leading-snug text-white/45">
+                <dd className="mt-4 max-w-[24ch] text-sm leading-snug text-paper/45">
                   {fact.unit}
                 </dd>
               </div>
@@ -351,9 +383,8 @@ export default function Home() {
             eyebrow="Рост выручки"
             title={
               <>
-                Источники
-                <br />
-                роста выручки
+                <span className="block whitespace-nowrap">Источники</span>
+                <span className="block whitespace-nowrap">роста выручки</span>
               </>
             }
             note={
@@ -362,7 +393,7 @@ export default function Home() {
                   Каждая функция Goulash существует только по одной причине — приблизить
                   рестораны доставки к росту выручки.
                 </p>
-                <p className="text-white/40">Отраслевая экспертиза в основе решения.</p>
+                <p className="text-paper/40">Отраслевая экспертиза в основе решения.</p>
               </>
             }
           />
@@ -373,15 +404,15 @@ export default function Home() {
                 key={block.kicker}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
-                <p className="min-h-[2.75rem] max-w-[26ch] text-sm leading-snug text-white/40">
+                <p className="min-h-[2.75rem] max-w-[26ch] text-sm leading-snug text-paper/40">
                   {block.kicker}
                 </p>
                 <p className="figure mt-6 text-figure text-cyan-accent">{block.value}</p>
-                <p className="mt-3 text-white/70">{block.unit}</p>
+                <p className="mt-3 text-paper/70">{block.unit}</p>
                 <ul className="mt-8 space-y-3 border-t border-ink-line pt-6">
                   {block.items.map((item) => (
-                    <li key={item} className="flex gap-3 text-sm leading-relaxed text-white/60">
-                      <span aria-hidden className="mt-2 size-1 shrink-0 bg-cyan-accent" />
+                    <li key={item} className="flex gap-3 text-sm leading-relaxed text-paper/60">
+                      <span aria-hidden className="mt-2 size-1 shrink-0 bg-cyan-fill" />
                       {item}
                     </li>
                   ))}
@@ -392,16 +423,18 @@ export default function Home() {
           </div>
 
           <div className="grid12 mt-24 gap-y-10 border-t border-ink-line pt-12">
-            <h3 className="col-span-12 text-h3 lg:col-span-4">
-              Результат, который опережает рынок
+            <h3 className="col-span-12 text-h3 leading-snug lg:col-span-4">
+              Результат выше
+              <br />
+              рынка
             </h3>
             <div className="col-span-12 lg:col-span-7 lg:col-start-6">
-              <p className="max-w-[54ch] text-lede leading-snug text-white/60">
+              <p className="max-w-[54ch] text-lede leading-snug text-paper/60">
                 Рост бизнеса — главный показатель эффективности. +29% рост выручки клиентов год
                 к году. На 7,1% выше рыночного показателя.
               </p>
-              <p className="mt-6 text-xs text-white/30">* — по данным РБК</p>
-              <p className="mt-1 text-xs text-white/40">
+              <p className="mt-6 text-xs text-paper/30">* — по данным РБК</p>
+              <p className="mt-1 text-xs text-paper/40">
                 Станислав Никифоров, коммерческий директор Goulash.tech
               </p>
             </div>
@@ -415,12 +448,12 @@ export default function Home() {
               >
                 <dt
                   className={`figure text-figure ${
-                    item.accent ? "text-cyan-accent" : "text-white/70"
+                    item.accent ? "text-cyan-accent" : "text-paper/70"
                   }`}
                 >
                   {item.value}
                 </dt>
-                <dd className="mt-4 max-w-[22ch] text-sm leading-snug text-white/45">
+                <dd className="mt-4 max-w-[22ch] text-sm leading-snug text-paper/45">
                   {item.unit}
                 </dd>
               </div>
@@ -433,9 +466,8 @@ export default function Home() {
           <SectionHead
             title={
               <>
-                Кому подходит
-                <br />
-                Goulash.tech
+                <span className="block whitespace-nowrap">Кому подходит</span>
+                <span className="block whitespace-nowrap">Goulash.tech</span>
               </>
             }
           />
@@ -445,18 +477,24 @@ export default function Home() {
                 key={item.title}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
               >
-                <h3 className="text-h3">{item.title}</h3>
-                <p className="mt-5 text-sm leading-relaxed text-white/55">{item.text}</p>
-                <blockquote className="mt-10 border-t border-ink-line pt-6 text-lg leading-snug text-white/85">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-h3">{item.title}</h3>
+                  <PointIcon name={item.icon} />
+                </div>
+                <p className="mt-5 text-sm leading-relaxed text-paper/55">{item.text}</p>
+                <blockquote className="mt-10 border-t border-ink-line pt-6 text-lg leading-snug text-paper/85">
                   «{item.quote}»
                 </blockquote>
                 <p className="mt-6 text-sm">{item.person}</p>
-                <p className="text-sm text-white/40">{item.role}</p>
+                <p className="text-sm text-paper/40">{item.role}</p>
               </article>
             ))}
           </div>
-          <p className="mt-24 max-w-[24ch] text-h2 leading-[1.1] sm:max-w-[30ch]">
-            Goulash.tech идеально подходит под кухни с циклом приготовления до 30 минут
+          <p className="mt-24 text-[clamp(1.2rem,4.2vw,4.15rem)] font-medium leading-[1.02] tracking-[-0.035em]">
+            <span className="block whitespace-nowrap">Goulash.tech идеально подходит</span>
+            <span className="block whitespace-nowrap">
+              <MorphCycle lines={FIT_CYCLE} interval={3800} />
+            </span>
           </p>
         </Section>
 
@@ -466,9 +504,8 @@ export default function Home() {
             eyebrow="Продукт"
             title={
               <>
-                Единая система управления
-                <br />
-                операционными процессами
+                <span className="block whitespace-nowrap">Единая система</span>
+                <span className="block whitespace-nowrap">управления процессами</span>
               </>
             }
             note={
@@ -487,13 +524,16 @@ export default function Home() {
                 key={point.title}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
-                <h3 className="max-w-[24ch] text-h3">{point.title}</h3>
-                <p className="mt-4 text-sm leading-relaxed text-white/50">{point.text}</p>
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-h3">{point.title}</h3>
+                  <PointIcon name={point.icon} />
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-paper/50">{point.text}</p>
               </div>
             ))}
           </div>
 
-          <p className="eyebrow mt-24 text-white/35">До и после перехода на платформу</p>
+          <p className="eyebrow mt-24 text-paper/35">До и после перехода на платформу</p>
           <dl className="grid12 mt-10 gap-y-12">
             {SHIFTS.map((item) => (
               <div
@@ -505,8 +545,8 @@ export default function Home() {
                   <p className="min-h-[2.75rem] max-w-[20ch] text-sm leading-snug">
                     {item.title}
                   </p>
-                  <p className="mt-4 text-sm text-white/30 tnum">{item.before}</p>
-                  <p className="text-sm text-white/60 tnum">{item.after}</p>
+                  <p className="mt-4 text-sm text-paper/30 tnum">{item.before}</p>
+                  <p className="text-sm text-paper/60 tnum">{item.after}</p>
                 </dd>
               </div>
             ))}
@@ -519,9 +559,8 @@ export default function Home() {
             eyebrow="Кейсы и отзывы"
             title={
               <>
-                Что говорят
-                <br />
-                клиенты
+                <span className="block whitespace-nowrap">Что говорят</span>
+                <span className="block whitespace-nowrap">клиенты</span>
               </>
             }
           />
@@ -539,23 +578,23 @@ export default function Home() {
                       className="max-h-8 w-auto max-w-[170px] object-contain object-left opacity-80"
                     />
                   ) : (
-                    <span className="eyebrow text-white/30">{item.company}</span>
+                    <span className="eyebrow text-paper/30">{item.company}</span>
                   )}
                 </div>
                 {item.result && (
                   <p className="figure mt-8 text-figure-sm text-cyan-accent">
                     {item.result}
-                    <span className="ml-2 align-middle text-sm font-normal tracking-normal text-white/45">
+                    <span className="ml-2 align-middle text-sm font-normal tracking-normal text-paper/45">
                       {item.resultUnit}
                     </span>
                   </p>
                 )}
-                <blockquote className="mt-8 border-t border-ink-line pt-6 text-base leading-relaxed text-white/75">
+                <blockquote className="mt-8 border-t border-ink-line pt-6 text-base leading-relaxed text-paper/75">
                   «{item.quote}»
                 </blockquote>
                 <figcaption className="mt-auto pt-8 text-sm">
                   <p>{item.person}</p>
-                  <p className="text-white/40">{item.company}</p>
+                  <p className="text-paper/40">{item.company}</p>
                 </figcaption>
               </figure>
             ))}
@@ -569,9 +608,8 @@ export default function Home() {
             eyebrow="Работаем по всей России"
             title={
               <>
-                Карта успешных заведений,
-                <br />
-                уже внедривших Гуляш
+                <span className="block whitespace-nowrap">Карта заведений,</span>
+                <span className="block whitespace-nowrap">где уже есть Гуляш</span>
               </>
             }
             note={
@@ -583,18 +621,11 @@ export default function Home() {
 
           <figure className="mt-16 sm:mt-20">
             <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/brand/map-russia.svg"
-                alt="Карта заведений, внедривших систему автоматизации Гуляш"
-                width={1200}
-                height={672}
-                loading="lazy"
-                decoding="async"
-                className="mx-auto h-auto w-full min-w-[640px] bg-transparent sm:min-w-0"
-              />
+              <div className="min-w-[640px] sm:min-w-0">
+                <RussiaMap />
+              </div>
             </div>
-            <figcaption className="mt-4 text-xs text-white/40 sm:hidden">
+            <figcaption className="mt-4 text-xs text-paper/40 sm:hidden">
               Карту можно прокрутить в сторону
             </figcaption>
           </figure>
@@ -611,10 +642,10 @@ export default function Home() {
           </div>
 
           <div className="grid12 mt-20 border-t border-ink-line pt-10">
-            <p className="col-span-12 text-lede leading-snug text-white/55 lg:col-span-6">
+            <p className="col-span-12 text-lede leading-snug text-paper/55 lg:col-span-6">
               Goulash.Tech осуществляет настройку программ автоматизации для ресторанов online
             </p>
-            <p className="col-span-12 mt-6 text-sm text-white/40 lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
+            <p className="col-span-12 mt-6 text-sm text-paper/40 lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
               Главный офис: Екатеринбург, Куйбышева, 41
             </p>
           </div>
@@ -645,9 +676,8 @@ export default function Home() {
             eyebrow="Тарифы"
             title={
               <>
-                У нас есть
-                <br />
-                2 тарифных плана
+                <span className="block whitespace-nowrap">У нас есть</span>
+                <span className="block whitespace-nowrap">2 тарифных плана</span>
               </>
             }
           />
@@ -657,10 +687,10 @@ export default function Home() {
                 key={item.title}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
               >
-                <dt className="eyebrow text-white/35">{item.title}</dt>
+                <dt className="eyebrow text-paper/35">{item.title}</dt>
                 <dd>
                   <p className="figure mt-8 text-figure">{item.value}</p>
-                  <p className="mt-5 max-w-[30ch] text-sm leading-relaxed text-white/50">
+                  <p className="mt-5 max-w-[30ch] text-sm leading-relaxed text-paper/50">
                     {item.text}
                   </p>
                 </dd>
@@ -674,12 +704,11 @@ export default function Home() {
           <div className="grid12 gap-y-12">
             <div className="col-span-12 lg:col-span-4">
               <Eyebrow>FAQ</Eyebrow>
-              <h2 className="mt-7 text-h2 leading-[1.05]">
-                Вопросы
-                <br />
-                и ответы
+              <h2 className="view-rise mt-7 text-h2 leading-[1.05]">
+                <span className="block whitespace-nowrap">Вопросы</span>
+                <span className="block whitespace-nowrap">и ответы</span>
               </h2>
-              <p className="mt-6 text-sm text-white/40">
+              <p className="mt-6 text-sm text-paper/40">
                 Отвечаем на самые популярные вопросы
               </p>
             </div>
@@ -694,14 +723,15 @@ export default function Home() {
           <div className="grid12 gap-y-14">
             <div className="col-span-12 lg:col-span-4">
               <LogoStacked className="h-14 w-auto" />
-              <h2 className="mt-10 text-h2 leading-[1.05]">
-                Узнать, как Goulash.tech поможет моему ресторану доставки
+              <h2 className="mt-10 text-[clamp(1.7rem,2.4vw,2.15rem)] leading-[1.08] tracking-[-0.03em]">
+                <span className="block whitespace-nowrap">Как Goulash.tech</span>
+                <span className="block whitespace-nowrap">поможет ресторану</span>
               </h2>
-              <p className="mt-7 max-w-[34ch] text-sm leading-relaxed text-white/50">
+              <p className="mt-7 max-w-[34ch] text-sm leading-relaxed text-paper/50">
                 Наш специалист проконсультирует вас по запуску платформы с учетом особенностей
                 вашего бизнеса.
               </p>
-              <div className="mt-10 space-y-2 border-t border-ink-line pt-6 text-sm text-white/45">
+              <div className="mt-10 space-y-2 border-t border-ink-line pt-6 text-sm text-paper/45">
                 <p className="tnum">Тех. поддержка 24/7: +7 (391) 226-92-02</p>
                 <p className="tnum">+7 495 868-36-08</p>
                 <p>info@goulash.tech</p>
@@ -718,7 +748,7 @@ export default function Home() {
 
       <a
         href="#lead"
-        className="btn fixed inset-x-4 bottom-4 z-40 bg-cyan-accent py-3.5 text-center text-base font-medium text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
+        className="btn fixed inset-x-4 bottom-4 z-40 bg-cyan-fill py-3.5 text-center text-base font-medium text-black shadow-lg shadow-cyan-fill/20 sm:hidden"
       >
         Хочу Гуляш
       </a>

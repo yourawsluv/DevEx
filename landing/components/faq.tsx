@@ -50,7 +50,7 @@ export function Faq() {
             >
               <span
                 className={`max-w-[44ch] text-h3 font-medium leading-snug transition-colors ${
-                  isOpen ? "text-cyan-accent" : "text-white"
+                  isOpen ? "text-cyan-accent" : "text-paper"
                 }`}
               >
                 {item.q}
@@ -58,14 +58,14 @@ export function Faq() {
               <span
                 aria-hidden
                 className={`mt-1 shrink-0 text-2xl leading-none transition-transform ${
-                  isOpen ? "rotate-45 text-cyan-accent" : "text-white/40"
+                  isOpen ? "rotate-45 text-cyan-accent" : "text-paper/40"
                 }`}
               >
                 +
               </span>
             </button>
             {isOpen && (
-              <p className="max-w-[62ch] pb-8 text-sm leading-relaxed text-white/60 rise">
+              <p className="max-w-[62ch] pb-8 text-sm leading-relaxed text-paper/60 rise">
                 {item.a}
               </p>
             )}

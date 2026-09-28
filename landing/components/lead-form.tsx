@@ -104,12 +104,12 @@ export function LeadForm() {
 
   if (status === "success") {
     return (
-      <div className="border border-cyan-accent/50 bg-cyan-accent/5 p-6 sm:p-10 rise">
-        <p className="grid size-12 place-items-center bg-cyan-accent text-2xl font-medium text-ink">
+      <div className="max-w-sm rise">
+        <p className="grid size-12 place-items-center rounded-full bg-cyan-fill text-2xl font-medium text-black">
           ✓
         </p>
         <h3 className="mt-7 text-h2">Заявка отправлена</h3>
-        <p className="mt-4 max-w-lg text-white/65">
+        <p className="mt-4 max-w-lg text-paper/65">
           Номер заявки <span className="text-cyan-accent tnum">{leadId}</span>.
           Наш специалист проконсультирует вас по запуску платформы с учетом особенностей вашего
           бизнеса.
@@ -122,7 +122,7 @@ export function LeadForm() {
             setErrors({});
             setStatus("idle");
           }}
-          className="mt-6 text-sm text-white/50 underline decoration-dotted underline-offset-4 hover:text-cyan-accent"
+          className="mt-6 text-sm text-paper/50 underline decoration-dotted underline-offset-4 hover:text-cyan-accent"
         >
           Отправить ещё одну заявку
         </button>
@@ -134,9 +134,9 @@ export function LeadForm() {
     <form
       onSubmit={submit}
       noValidate
-      className="border border-ink-line bg-ink-soft p-6 sm:p-10"
+      className="max-w-sm"
     >
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-5">
         <Field
           label="Имя"
           error={errors.name}
@@ -170,7 +170,6 @@ export function LeadForm() {
         />
         <Field
           label="Город"
-          className="sm:col-span-2"
           error={errors.city}
           input={
             <input
@@ -185,7 +184,7 @@ export function LeadForm() {
         />
       </div>
 
-      <label className="mt-5 flex items-start gap-3 text-sm text-white/55">
+      <label className="mt-5 flex items-start gap-3 text-sm text-paper/55">
         <input
           type="checkbox"
           checked={fields.consent}
@@ -206,24 +205,22 @@ export function LeadForm() {
           className="mt-6 border border-[#ff6b6b]/50 bg-[#ff6b6b]/10 p-4 text-sm text-[#ff6b6b] rise"
         >
           <p className="font-medium">Заявка не отправилась</p>
-          <p className="mt-1 text-white/70">{serverMessage}</p>
+          <p className="mt-1 text-paper/70">{serverMessage}</p>
         </div>
       )}
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="btn mt-8 inline-flex items-center justify-center gap-2 bg-cyan-accent px-7 py-4 text-left text-base font-medium text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
+        className="btn mt-8 inline-flex w-fit items-center justify-center gap-2 bg-cyan-fill px-7 py-3.5 text-base font-medium text-black transition-colors hover:bg-cyan-fill-hover disabled:cursor-progress disabled:opacity-70"
       >
         {status === "loading" && (
           <span
             aria-hidden
-            className="size-4 animate-spin rounded-full border-2 border-ink/30 border-t-ink"
+            className="size-4 animate-spin rounded-full border-2 border-black/30 border-t-black"
           />
         )}
-        {status === "loading"
-          ? "Отправляем…"
-          : "Узнать, как Goulash.tech поможет моему ресторану доставки"}
+        {status === "loading" ? "Отправка" : "Отправить"}
       </button>
       <p aria-live="polite" className="sr-only">
         {status === "loading" ? "Отправка заявки" : ""}
@@ -233,7 +230,7 @@ export function LeadForm() {
 }
 
 function inputClass(invalid: boolean) {
-  return `w-full border bg-ink px-4 py-3.5 text-base text-white placeholder:text-white/25 focus:outline-none ${
+  return `w-full rounded-xl border bg-ink px-4 py-3.5 text-base text-paper placeholder:text-paper/25 focus:outline-none ${
     invalid ? "border-[#ff6b6b] focus:border-[#ff6b6b]" : "border-ink-line focus:border-cyan-accent"
   }`;
 }
@@ -251,7 +248,7 @@ function Field({
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-2 block text-sm text-white/55">{label}</span>
+      <span className="mb-2 block text-sm text-paper/55">{label}</span>
       {input}
       {error && <span className="mt-1.5 block text-sm text-[#ff6b6b]">{error}</span>}
     </label>
