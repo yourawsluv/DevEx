@@ -161,11 +161,16 @@ h4 {
     font-variant-numeric: tabular-nums;
   }
 
-  /* Numbers: one step up in size, one step tighter in tracking. */
+  /* Large figures: proportional digits so «1» sits against its neighbours. */
+  .figure,
+  .nums {
+    font-variant-numeric: proportional-nums lining-nums;
+    font-feature-settings: "pnum" 1, "lnum" 1, "tnum" 0;
+    letter-spacing: -0.06em;
+  }
+
   .figure {
     font-weight: 500;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.05em;
     line-height: 0.92;
   }
 
