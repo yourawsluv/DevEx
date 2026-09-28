@@ -90,7 +90,7 @@ export function ProductScreens() {
           <p className="eyebrow text-white/35">goulash.tech</p>
           <h3 className="mt-3 text-h3">От первого заказа до доставки к гостю</h3>
         </div>
-        <div role="tablist" aria-label="Экран продукта" className="flex border border-ink-line bg-ink p-1">
+        <div role="tablist" aria-label="Экран продукта" className="btn flex border border-ink-line bg-ink p-1">
           {ROLES.map((item) => (
             <button
               key={item.id}
@@ -98,7 +98,7 @@ export function ProductScreens() {
               role="tab"
               aria-selected={role === item.id}
               onClick={() => setRole(item.id)}
-              className={`flex-1 whitespace-nowrap px-5 py-2 text-sm font-medium transition-colors ${
+              className={`btn flex-1 whitespace-nowrap px-5 py-2 text-sm font-medium transition-colors ${
                 role === item.id ? "bg-cyan-accent text-ink" : "text-white/60 hover:text-white"
               }`}
             >

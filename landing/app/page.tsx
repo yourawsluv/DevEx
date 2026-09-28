@@ -297,13 +297,13 @@ export default function Home() {
               <div className="col-span-12 flex flex-col gap-3 sm:flex-row lg:col-span-6 lg:col-start-7">
                 <a
                   href="#lead"
-                  className="inline-flex items-center justify-center bg-cyan-accent px-7 py-4 text-base font-medium text-ink transition-colors hover:bg-cyan-300"
+                  className="btn inline-flex items-center justify-center bg-cyan-accent px-7 py-4 text-base font-medium text-ink transition-colors hover:bg-cyan-300"
                 >
                   Обсудить за 15 минут
                 </a>
                 <a
                   href="#product"
-                  className="inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                  className="btn inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-white transition-colors hover:border-cyan-accent hover:text-cyan-accent"
                 >
                   Смотреть продукт
                 </a>
@@ -581,7 +581,7 @@ export default function Home() {
             }
           />
 
-          <figure className="mt-16 bg-paper px-4 py-8 sm:mt-20 sm:px-12 sm:py-16">
+          <figure className="mt-16 sm:mt-20">
             <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -591,10 +591,10 @@ export default function Home() {
                 height={672}
                 loading="lazy"
                 decoding="async"
-                className="mx-auto h-auto w-full min-w-[640px] sm:min-w-0"
+                className="mx-auto h-auto w-full min-w-[640px] bg-transparent sm:min-w-0"
               />
             </div>
-            <figcaption className="mt-6 text-xs text-[#1c1f21]/45 sm:hidden">
+            <figcaption className="mt-4 text-xs text-white/40 sm:hidden">
               Карту можно прокрутить в сторону
             </figcaption>
           </figure>
@@ -718,7 +718,7 @@ export default function Home() {
 
       <a
         href="#lead"
-        className="fixed inset-x-4 bottom-4 z-40 bg-cyan-accent py-3.5 text-center text-base font-medium text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
+        className="btn fixed inset-x-4 bottom-4 z-40 bg-cyan-accent py-3.5 text-center text-base font-medium text-ink shadow-lg shadow-cyan-accent/20 sm:hidden"
       >
         Хочу Гуляш
       </a>

@@ -47,7 +47,7 @@ export function SiteHeader() {
         </nav>
         <a
           href="#lead"
-          className="bg-cyan-accent px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cyan-300"
+          className="btn bg-cyan-accent px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cyan-300"
         >
           Хочу Гуляш
         </a>

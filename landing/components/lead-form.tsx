@@ -213,7 +213,7 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-8 inline-flex items-center justify-center gap-2 bg-cyan-accent px-7 py-4 text-left text-base font-medium text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
+        className="btn mt-8 inline-flex items-center justify-center gap-2 bg-cyan-accent px-7 py-4 text-left text-base font-medium text-ink transition-colors hover:bg-cyan-300 disabled:cursor-progress disabled:opacity-70"
       >
         {status === "loading" && (
           <span
