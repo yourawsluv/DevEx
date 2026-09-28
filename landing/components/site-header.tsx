@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Logo } from "./brand";
+import { LogoMark } from "./brand";
 
 const NAV = [
-  { href: "#demo", label: "Демо смены" },
-  { href: "#numbers", label: "Цифры" },
-  { href: "#modules", label: "Что входит" },
-  { href: "#price", label: "Сколько стоит" },
+  { href: "#growth", label: "Рост выручки" },
+  { href: "#product", label: "Продукт" },
+  { href: "#reviews", label: "Отзывы" },
+  { href: "#geo", label: "География" },
+  { href: "#price", label: "Тарифы" },
   { href: "#faq", label: "Вопросы" },
 ];
 
@@ -29,16 +30,16 @@ export function SiteHeader() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <div className="shell flex h-16 items-center justify-between gap-6">
-        <a href="#top" className="shrink-0">
-          <Logo />
+      <div className="shell flex h-20 items-center justify-between gap-8">
+        <a href="#top" className="shrink-0" aria-label="Goulash.tech">
+          <LogoMark />
         </a>
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-white/65 transition-colors hover:text-cyan-accent"
+              className="text-sm text-white/60 transition-colors hover:text-cyan-accent"
             >
               {item.label}
             </a>
@@ -46,9 +47,9 @@ export function SiteHeader() {
         </nav>
         <a
           href="#lead"
-          className="rounded-full bg-cyan-accent px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:bg-cyan-300 sm:px-5"
+          className="btn bg-cyan-accent px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cyan-300"
         >
-          Разобрать смену
+          Хочу Гуляш
         </a>
       </div>
     </header>
