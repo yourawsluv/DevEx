@@ -48,17 +48,13 @@ export function Faq() {
               aria-expanded={isOpen}
               className="flex w-full items-start justify-between gap-8 py-7 text-left"
             >
-              <span
-                className={`max-w-[44ch] text-h3 font-medium leading-snug transition-colors ${
-                  isOpen ? "text-cyan-accent" : "text-paper"
-                }`}
-              >
+              <span className="max-w-[44ch] text-h3 font-medium leading-snug text-paper">
                 {item.q}
               </span>
               <span
                 aria-hidden
                 className={`mt-1 shrink-0 text-2xl leading-none transition-transform ${
-                  isOpen ? "rotate-45 text-cyan-accent" : "text-paper/40"
+                  isOpen ? "rotate-45 text-paper" : "text-paper/40"
                 }`}
               >
                 +

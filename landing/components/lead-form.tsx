@@ -105,12 +105,12 @@ export function LeadForm() {
   if (status === "success") {
     return (
       <div className="max-w-sm rise">
-        <p className="grid size-12 place-items-center rounded-full bg-cyan-fill text-2xl font-medium text-black">
+        <p className="grid size-12 place-items-center rounded-full bg-paper text-2xl font-medium text-ink">
           ✓
         </p>
         <h3 className="mt-7 text-h2">Заявка отправлена</h3>
         <p className="mt-4 max-w-lg text-paper/65">
-          Номер заявки <span className="text-cyan-accent tnum">{leadId}</span>.
+          Номер заявки <span className="text-paper tnum">{leadId}</span>.
           Наш специалист проконсультирует вас по запуску платформы с учетом особенностей вашего
           бизнеса.
         </p>
@@ -122,7 +122,7 @@ export function LeadForm() {
             setErrors({});
             setStatus("idle");
           }}
-          className="mt-6 text-sm text-paper/50 underline decoration-dotted underline-offset-4 hover:text-cyan-accent"
+          className="mt-6 text-sm text-paper/50 underline decoration-dotted underline-offset-4 hover:text-paper"
         >
           Отправить ещё одну заявку
         </button>
@@ -190,7 +190,7 @@ export function LeadForm() {
           checked={fields.consent}
           onChange={(event) => setField("consent", event.target.checked)}
           onBlur={() => blur("consent")}
-          className="mt-0.5 size-4 accent-[#00ffff]"
+          className="mt-0.5 size-4 accent-current"
           aria-invalid={!!errors.consent}
         />
         <span>
@@ -231,7 +231,7 @@ export function LeadForm() {
 
 function inputClass(invalid: boolean) {
   return `w-full rounded-xl border bg-ink px-4 py-3.5 text-base text-paper placeholder:text-paper/25 focus:outline-none ${
-    invalid ? "border-[#ff6b6b] focus:border-[#ff6b6b]" : "border-ink-line focus:border-cyan-accent"
+    invalid ? "border-[#ff6b6b] focus:border-[#ff6b6b]" : "border-ink-line focus:border-paper/45"
   }`;
 }
 

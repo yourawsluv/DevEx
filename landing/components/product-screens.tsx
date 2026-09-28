@@ -229,7 +229,7 @@ export function ProductScreens() {
         >
           <MorphSwap variant="glide" text={CAPTION[role]} />
         </p>
-        <div className="flex shrink-0 justify-center px-4 pb-[4.75rem] sm:pb-5">
+        <div className="flex shrink-0 justify-center px-4 pb-5">
           <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-paper/10 p-1.5 backdrop-blur">
             {ROLES.map((item) => (
               <button
@@ -262,8 +262,8 @@ function frameClass(role: Role) {
 function LiveDot() {
   return (
     <span className="relative inline-flex size-2.5 shrink-0" aria-hidden>
-      <span className="live-ping absolute inset-0 rounded-full bg-[#00b7b7]" />
-      <span className="relative size-2.5 rounded-full bg-[#00d6d6]" />
+      <span className="live-ping absolute inset-0 rounded-full bg-current" />
+      <span className="relative size-2.5 rounded-full bg-current" />
     </span>
   );
 }
@@ -440,7 +440,7 @@ function OrdersPanel({
             onClick={() => onFilter(item)}
             aria-pressed={filter === item}
             className={`rounded-full px-2.5 py-1 text-xs ${
-              filter === item ? "bg-[#00ffff] font-medium text-black" : "bg-white text-black/60"
+              filter === item ? "bg-[#111] font-medium text-white" : "bg-white text-black/60"
             }`}
           >
             {item}
@@ -461,12 +461,12 @@ function OrdersPanel({
               onClick={() => onSelect(order.id)}
               aria-pressed={selected}
               className={`rounded-xl border bg-white p-2 text-left ${
-                selected ? "border-[#00c2c2] ring-2 ring-[#00ffff]/50" : "border-black/10"
+                selected ? "border-[#111] ring-2 ring-black/10" : "border-black/10"
               }`}
             >
               <p className="text-sm font-medium tnum">№{order.id}</p>
               <p className="mt-0.5 text-[11px] text-black/45">{order.wait}</p>
-              <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-[#0a7a72]">
+              <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-black/70">
                 {cooking && <LiveDot />}
                 {status}
               </p>
@@ -483,7 +483,7 @@ function LiveOrder() {
     <div className="mt-2 flex items-center gap-2 rounded-full bg-[#111] px-3 py-1.5 text-white">
       <LiveDot />
       <span className="text-[11px] tnum">№0002</span>
-      <span className="text-[11px] text-[#c8fffb]">готовится</span>
+      <span className="text-[11px] text-white/75">готовится</span>
       <MorphCycle
         variant="numbers"
         lines={PREP_TIMES}
@@ -515,7 +515,7 @@ function ForcePanel() {
         type="button"
         onClick={() => setExtra((value) => !value)}
         className={`w-full rounded-full px-3 py-2 text-xs font-medium ${
-          extra ? "bg-[#00ffff] text-black" : "bg-white text-black"
+          extra ? "bg-[#111] text-white" : "bg-white text-black"
         }`}
       >
         {extra ? "ETA +15 мин включено" : "+15 минут к ETA"}
@@ -566,7 +566,7 @@ function MoneyPanel({ kind }: { kind: "in" | "out" }) {
       {rows.map(([label, value]) => (
         <li key={label} className="flex items-center justify-between rounded-xl bg-white px-3 py-2 text-sm">
           <span>{label}</span>
-          <span className={`tnum ${kind === "in" ? "text-[#0a7a72]" : "text-[#9a3b3b]"}`}>{value}</span>
+          <span className={`tnum ${kind === "in" ? "text-black" : "text-[#9a3b3b]"}`}>{value}</span>
         </li>
       ))}
     </ul>
@@ -589,7 +589,7 @@ function CheckPanel() {
               }
               className="flex w-full items-center gap-2 rounded-xl bg-white px-3 py-2 text-left text-sm"
             >
-              <span className={`size-3.5 rounded-full border ${on ? "border-[#00b7b7] bg-[#00ffff]" : "border-black/20"}`} />
+              <span className={`size-3.5 rounded-full border ${on ? "border-[#111] bg-[#111]" : "border-black/20"}`} />
               <span className={on ? "text-black/40 line-through" : ""}>{item}</span>
             </button>
           </li>
@@ -660,7 +660,7 @@ function CourierScreen({
                 onClick={() => onSelect(item.id)}
                 aria-pressed={on}
                 className={`w-full rounded-2xl border px-3 py-2.5 text-left ${
-                  on ? "border-[#00c2c2] bg-[#f3fffe]" : "border-black/10"
+                  on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
                 }`}
               >
                 <p className="flex items-center justify-between gap-2 text-sm font-medium">
@@ -772,7 +772,7 @@ function CartView({
               onClick={() => onToggleAddon(item)}
               aria-pressed={on}
               className={`rounded-full border px-2.5 py-1 text-[11px] ${
-                on ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+                on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
               }`}
             >
               {item}
@@ -780,7 +780,7 @@ function CartView({
           );
         })}
       </div>
-      <button type="button" onClick={() => onView("product")} className="mt-3 text-xs font-medium text-[#0a7a72]">
+      <button type="button" onClick={() => onView("product")} className="mt-3 text-xs font-medium text-black">
         Эби Спайси · 269 ₽
       </button>
       <button
@@ -822,7 +822,7 @@ function ProductView({
               onClick={() => onToggleMod(item)}
               aria-pressed={on}
               className={`rounded-full border px-2.5 py-1 text-[11px] ${
-                on ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+                on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
               }`}
             >
               {item}
@@ -865,7 +865,7 @@ function CheckoutView({
         onClick={onToggleBonuses}
         aria-pressed={spendBonuses}
         className={`mt-3 w-full rounded-2xl border px-3 py-2 text-left text-xs ${
-          spendBonuses ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+          spendBonuses ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
         }`}
       >
         {spendBonuses ? "Бонусы списываются" : "Не списывать бонусы"}

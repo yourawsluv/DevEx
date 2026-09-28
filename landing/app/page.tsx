@@ -299,7 +299,7 @@ export default function Home() {
           <span aria-hidden className="gridlines mx-auto max-w-[92rem]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-48 left-1/4 h-[520px] w-[760px] rounded-full bg-cyan-fill/10 blur-[150px]"
+            className="pointer-events-none absolute -top-48 left-1/4 h-[520px] w-[760px] rounded-full bg-paper/10 blur-[150px]"
           />
           <div className="shell relative pt-12 pb-14 sm:pt-16 lg:pt-20 lg:pb-20">
             <div className="grid12">
@@ -318,7 +318,7 @@ export default function Home() {
                 </span>
                 <span className="block whitespace-nowrap">
                   выручки в год на точку
-                  <span aria-hidden className="align-top text-[0.45em] text-cyan-accent">
+                  <span aria-hidden className="align-top text-[0.45em] text-paper/45">
                     *
                   </span>
                 </span>
@@ -338,7 +338,7 @@ export default function Home() {
                 </a>
                 <a
                   href="#product"
-                  className="btn inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-paper transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                  className="btn inline-flex items-center justify-center border border-ink-line px-7 py-4 text-base font-medium text-paper transition-colors hover:border-paper/40"
                 >
                   Смотреть продукт
                 </a>
@@ -370,7 +370,7 @@ export default function Home() {
                 key={fact.value}
                 className={`col-span-6 sm:col-span-4 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
-                <dt className="figure text-figure text-cyan-accent">
+                <dt className="figure text-figure text-paper">
                   <CountUp value={fact.value} />
                 </dt>
                 <dd className="mt-4 max-w-[24ch] text-sm leading-snug text-paper/45">
@@ -412,14 +412,14 @@ export default function Home() {
                 <p className="min-h-[2.75rem] max-w-[26ch] text-sm leading-snug text-paper/40">
                   {block.kicker}
                 </p>
-                <p className="figure mt-6 text-figure text-cyan-accent">
+                <p className="figure mt-6 text-figure text-paper">
                   <CountUp value={block.value} />
                 </p>
                 <p className="mt-3 text-paper/70">{block.unit}</p>
                 <ul className="mt-8 space-y-3 border-t border-ink-line pt-6">
                   {block.items.map((item) => (
                     <li key={item} className="flex gap-3 text-sm leading-relaxed text-paper/60">
-                      <span aria-hidden className="mt-2 size-1 shrink-0 bg-cyan-fill" />
+                      <span aria-hidden className="mt-2 size-1 shrink-0 bg-paper/55" />
                       {item}
                     </li>
                   ))}
@@ -455,7 +455,7 @@ export default function Home() {
               >
                 <dt
                   className={`figure text-figure ${
-                    item.accent ? "text-cyan-accent" : "text-paper/70"
+                    item.accent ? "text-paper" : "text-paper/70"
                   }`}
                 >
                   <CountUp value={item.value} />
@@ -547,7 +547,7 @@ export default function Home() {
                 key={item.title}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
               >
-                <dt className="figure text-figure text-cyan-accent">
+                <dt className="figure text-figure text-paper">
                   <CountUp value={item.delta} />
                 </dt>
                 <dd className="mt-5">
@@ -592,7 +592,7 @@ export default function Home() {
                   )}
                 </div>
                 {item.result && (
-                  <p className="figure mt-8 text-figure-sm text-cyan-accent">
+                  <p className="figure mt-8 text-figure-sm text-paper">
                     <CountUp value={item.result!} />
                     <span className="ml-2 align-middle text-sm font-normal tracking-normal text-paper/45">
                       {item.resultUnit}
@@ -757,13 +757,6 @@ export default function Home() {
 
         <SiteFooter />
       </main>
-
-      <a
-        href="#lead"
-        className="btn fixed inset-x-4 bottom-4 z-40 bg-cyan-fill py-3.5 text-center text-base font-medium text-black shadow-lg shadow-cyan-fill/20 sm:hidden"
-      >
-        Хочу Гуляш
-      </a>
     </>
   );
 }

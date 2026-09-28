@@ -39,7 +39,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-paper/60 transition-colors hover:text-cyan-accent"
+              className="text-sm text-paper/60 transition-colors hover:text-paper"
             >
               {item.label}
             </a>

@@ -71,7 +71,7 @@ export function SiteFooter() {
               <a
                 key={item.label}
                 href={item.href}
-                className="transition-colors hover:text-cyan-accent"
+                className="transition-colors hover:text-paper"
               >
                 {item.label}
               </a>
@@ -106,7 +106,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="grid size-10 place-items-center rounded-full border border-ink-line text-paper/55 transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                className="grid size-10 place-items-center rounded-full border border-ink-line text-paper/55 transition-colors hover:border-paper/40 hover:text-paper"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className="size-5">
                   <path d={item.path} />

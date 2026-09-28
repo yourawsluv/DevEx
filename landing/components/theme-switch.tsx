@@ -80,7 +80,7 @@ export function ThemeSwitch() {
             aria-checked={on}
             onClick={() => choose(option.id)}
             className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
-              on ? "bg-cyan-fill text-black" : "text-paper/55 hover:text-paper"
+              on ? "bg-paper text-ink" : "text-paper/55 hover:text-paper"
             }`}
           >
             {option.label}
