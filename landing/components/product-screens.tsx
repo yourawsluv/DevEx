@@ -156,19 +156,15 @@ export function ProductScreens() {
       <div className="sticky top-14 z-20 flex h-[calc(100svh-3.5rem)] flex-col">
         <div className="flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-4">
           <div
-            className={`flex h-full min-h-0 w-full items-center justify-center gap-3 sm:gap-8 ${
+            className={`flex h-full min-h-0 w-full items-center justify-center gap-8 ${
               role === "restaurant" ? "flex-col" : role === "courier" ? "flex-row" : "flex-row-reverse"
             }`}
           >
             <p
               data-demo-caption
-              className={`shrink-0 text-lg font-medium leading-snug text-paper sm:text-2xl ${
-                role === "restaurant"
-                  ? "max-w-[16rem] text-center"
-                  : "w-[6.5rem] sm:w-52"
-              }`}
+              className="hidden shrink-0 whitespace-nowrap text-center text-2xl font-medium leading-snug text-paper sm:block"
             >
-              <MorphSwap variant="glide" className="block whitespace-normal" text={CAPTION[role]} />
+              <MorphSwap variant="glide" text={CAPTION[role]} />
             </p>
             <div key={role} className={`screen-swap min-h-0 @container ${frameClass(role)} ${FRAME}`}>
             {role === "restaurant" && (
@@ -227,6 +223,12 @@ export function ProductScreens() {
           </div>
         </div>
 
+        <p
+          data-demo-caption
+          className="shrink-0 whitespace-nowrap px-4 pb-3 text-center text-lg font-medium leading-snug text-paper sm:hidden"
+        >
+          <MorphSwap variant="glide" text={CAPTION[role]} />
+        </p>
         <div className="flex shrink-0 justify-center px-4 pb-[4.75rem] sm:pb-5">
           <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-paper/10 p-1.5 backdrop-blur">
             {ROLES.map((item) => (
@@ -254,7 +256,7 @@ function frameClass(role: Role) {
   if (role === "restaurant") {
     return "aspect-[16/10] w-[min(100%,calc((100svh-17.5rem)*1.6))] max-w-full";
   }
-  return "aspect-[9/19.5] w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-8.25rem))]";
+  return "aspect-[9/19.5] w-[min(calc((100svh-17.5rem)*0.4615),100%)] sm:w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-24rem))]";
 }
 
 function LiveDot() {
