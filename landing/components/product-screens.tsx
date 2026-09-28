@@ -77,7 +77,7 @@ const STOPS: {
 const ADDONS = ["Соевый соус", "Васаби", "Палочки", "Имбирь"];
 
 const FRAME =
-  "overflow-hidden border-[8px] border-[color:color-mix(in_srgb,var(--paper)_38%,transparent)] bg-white text-[#1a1d1f]";
+  "overflow-hidden rounded-[16px] border-[8px] border-[color:color-mix(in_srgb,var(--paper)_38%,transparent)] bg-white text-[#1a1d1f]";
 
 function pageTop(el: HTMLElement) {
   let top = 0;
@@ -154,12 +154,23 @@ export function ProductScreens() {
   return (
     <div ref={track} className="relative h-[300svh]">
       <div className="sticky top-14 z-20 flex h-[calc(100svh-3.5rem)] flex-col">
-        <p className="shrink-0 px-4 pt-4 text-center text-sm text-paper/55 sm:pt-6">
-          <MorphSwap variant="glide" text={CAPTION[role]} />
-        </p>
-
-        <div className="flex min-h-0 flex-1 items-center justify-center px-4 py-3">
-          <div key={role} className={`screen-swap @container ${frameClass(role)} ${FRAME}`}>
+        <div className="flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-4">
+          <div
+            className={`flex h-full min-h-0 w-full items-center justify-center gap-3 sm:gap-8 ${
+              role === "restaurant" ? "flex-col" : role === "courier" ? "flex-row" : "flex-row-reverse"
+            }`}
+          >
+            <p
+              data-demo-caption
+              className={`shrink-0 text-lg font-medium leading-snug text-paper sm:text-2xl ${
+                role === "restaurant"
+                  ? "max-w-[16rem] text-center"
+                  : "w-[6.5rem] sm:w-52"
+              }`}
+            >
+              <MorphSwap variant="glide" className="block whitespace-normal" text={CAPTION[role]} />
+            </p>
+            <div key={role} className={`screen-swap min-h-0 @container ${frameClass(role)} ${FRAME}`}>
             {role === "restaurant" && (
               <RestaurantScreen
                 section={section}
@@ -212,11 +223,12 @@ export function ProductScreens() {
                 onToggleBonuses={() => setSpendBonuses((value) => !value)}
               />
             )}
+            </div>
           </div>
         </div>
 
-        <div className="shrink-0 flex justify-center px-4 pb-[4.75rem] sm:pb-5">
-          <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-ink/85 p-1 backdrop-blur">
+        <div className="flex shrink-0 justify-center px-4 pb-[4.75rem] sm:pb-5">
+          <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-paper/10 p-1.5 backdrop-blur">
             {ROLES.map((item) => (
               <button
                 key={item.id}
@@ -224,8 +236,8 @@ export function ProductScreens() {
                 role="tab"
                 aria-selected={role === item.id}
                 onClick={() => goTo(item.id)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
-                  role === item.id ? "bg-cyan-fill text-black" : "text-paper/60 hover:text-paper"
+                className={`rounded-full px-4 py-2.5 text-base font-medium transition-colors sm:px-6 sm:text-lg ${
+                  role === item.id ? "bg-black text-white" : "text-paper/70 hover:text-paper"
                 }`}
               >
                 {item.label}
@@ -240,9 +252,9 @@ export function ProductScreens() {
 
 function frameClass(role: Role) {
   if (role === "restaurant") {
-    return "aspect-[16/10] h-[min(100%,calc(100svh-13.5rem))] w-auto max-w-full";
+    return "aspect-[16/10] w-[min(100%,calc((100svh-17.5rem)*1.6))] max-w-full";
   }
-  return "aspect-[9/19.5] h-[min(100%,calc(100svh-13.5rem))] w-auto max-w-full";
+  return "aspect-[9/19.5] w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-8.25rem))]";
 }
 
 function LiveDot() {

@@ -531,9 +531,9 @@ export default function Home() {
                 key={point.title}
                 className={`point-block col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-h3">{point.title}</h3>
+                <div>
                   <PointIcon name={point.icon} />
+                  <h3 className="mt-3 max-w-[16ch] text-h3 leading-[1.12]">{point.title}</h3>
                 </div>
                 <p className="mt-4 text-sm leading-relaxed text-paper/50">{point.text}</p>
               </div>

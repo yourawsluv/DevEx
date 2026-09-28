@@ -221,6 +221,13 @@ h4 {
   animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Torph keeps each line nowrap. Side captions must stay inside their column. */
+[data-demo-caption] [data-torph] > span {
+  display: block !important;
+  max-width: 100%;
+  white-space: normal !important;
+}
+
 @keyframes pulse-dot {
   0%,
   100% {
@@ -382,6 +389,31 @@ html[data-resolved="light"] .mark-adapt {
   animation: live-ping 1.35s ease-out infinite;
 }
 
+@keyframes pin-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.venue-pin {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .map-reveal:not(.pins-play) .venue-pin {
+    opacity: 0;
+  }
+
+  .map-reveal.pins-play .venue-pin {
+    animation: pin-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 16ms);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -395,7 +427,8 @@ html[data-resolved="light"] .mark-adapt {
   .icon-grow,
   .icon-pulse,
   .live-ping,
-  .screen-swap {
+  .screen-swap,
+  .venue-pin {
     animation: none;
   }
 }
