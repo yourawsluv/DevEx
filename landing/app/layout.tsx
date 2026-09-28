@@ -30,8 +30,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru" className={`${onest.variable} h-full`}>
-      <body className="min-h-full font-sans antialiased">{children}</body>
+    <html lang="ru" className={`${onest.variable} h-full`} suppressHydrationWarning>
+      <body className="min-h-full font-sans antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var k="goulash-theme";var s=localStorage.getItem(k);var m=s==="light"||s==="dark"||s==="system"?s:"system";var d=m==="dark"||(m!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;r.dataset.theme=m;r.dataset.resolved=d?"dark":"light";r.style.colorScheme=d?"dark":"light";}catch(e){}})();`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

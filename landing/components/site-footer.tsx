@@ -1,4 +1,5 @@
 import { LogoHorizontal } from "./brand";
+import { ThemeSwitch } from "./theme-switch";
 
 const NAV = [
   { label: "Подключить", href: "#lead" },
@@ -64,7 +65,7 @@ export function SiteFooter() {
           </div>
           <nav
             aria-label="Навигация в подвале"
-            className="col-span-12 flex flex-wrap gap-x-7 gap-y-3 text-sm text-white/55 lg:col-span-7 lg:col-start-6 lg:justify-end"
+            className="col-span-12 flex flex-wrap gap-x-7 gap-y-3 text-sm text-paper/55 lg:col-span-7 lg:col-start-6 lg:justify-end"
           >
             {NAV.map((item) => (
               <a
@@ -78,15 +79,20 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-12 grid12 gap-y-8 border-t border-ink-line pt-8">
-          <div className="col-span-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/30 lg:col-span-7">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-ink-line pt-8">
+          <p className="text-xs text-paper/35">Тема</p>
+          <ThemeSwitch />
+        </div>
+
+        <div className="mt-8 grid12 gap-y-8 border-t border-ink-line pt-8">
+          <div className="col-span-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-paper/30 lg:col-span-7">
             {LEGAL.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-white/60"
+                className="transition-colors hover:text-paper/60"
               >
                 {item.label}
               </a>
@@ -100,7 +106,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={item.label}
-                className="grid size-10 place-items-center rounded-full border border-ink-line text-white/55 transition-colors hover:border-cyan-accent hover:text-cyan-accent"
+                className="grid size-10 place-items-center rounded-full border border-ink-line text-paper/55 transition-colors hover:border-cyan-accent hover:text-cyan-accent"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className="size-5">
                   <path d={item.path} />
@@ -111,12 +117,12 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 grid12 gap-y-8">
-          <p className="col-span-12 max-w-[52ch] text-xs leading-relaxed text-white/30 lg:col-span-5">
+          <p className="col-span-12 max-w-[52ch] text-xs leading-relaxed text-paper/30 lg:col-span-5">
             * — средний показатель роста на точку за 2025 год, полученный на основе внутренних
             аналитических данных платформы Goulash Tech для сетей с оборотом более 16 млн в
             месяц
           </p>
-          <p className="col-span-12 max-w-[64ch] text-xs leading-relaxed text-white/25 lg:col-span-6 lg:col-start-7">
+          <p className="col-span-12 max-w-[64ch] text-xs leading-relaxed text-paper/25 lg:col-span-6 lg:col-start-7">
             SaaS-платформа Goulash Tech — сервис автоматизации ресторанной доставки. Общество с
             ограниченной ответственностью «Мне бы в космос» является обладателем исключительных
             прав на программу, право использования программы предоставляется на основании
@@ -130,7 +136,7 @@ export function SiteFooter() {
 
       <div
         aria-hidden
-        className="mt-12 select-none overflow-hidden pb-16 sm:pb-0 lg:mt-16"
+        className="mt-12 select-none overflow-hidden pb-28 sm:pb-0 lg:mt-16"
       >
         <p className="wordmark shell translate-y-[0.16em] whitespace-nowrap">Goulash.tech</p>
       </div>

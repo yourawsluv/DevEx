@@ -1,12 +1,61 @@
 @import "tailwindcss";
 
-@theme {
-  --color-ink: #000000;
-  --color-ink-soft: #0a0b0c;
-  --color-ink-line: #1c1f21;
-  --color-paper: #ffffff;
-  --color-cyan-accent: #00ffff;
-  --color-cyan-300: #66ffff;
+/* Dark is the brand default. Light follows the system until the footer switch overrides it. */
+:root {
+  --ink: #000000;
+  --ink-soft: #0a0b0c;
+  --ink-line: #1c1f21;
+  --paper: #ffffff;
+  --accent: #00ffff;
+  --accent-fill: #00ffff;
+  --accent-fill-hover: #66ffff;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-resolved="dark"]) {
+    --ink: #f3f5f6;
+    --ink-soft: #ffffff;
+    --ink-line: #e2e5e9;
+    --paper: #14171a;
+    --accent: #087575;
+    --accent-fill: #00e3e3;
+    --accent-fill-hover: #7dffff;
+    color-scheme: light;
+  }
+}
+
+html[data-resolved="light"] {
+  --ink: #f3f5f6;
+  --ink-soft: #ffffff;
+  --ink-line: #e2e5e9;
+  --paper: #14171a;
+  --accent: #087575;
+  --accent-fill: #00e3e3;
+  --accent-fill-hover: #7dffff;
+  color-scheme: light;
+}
+
+html[data-resolved="dark"] {
+  --ink: #000000;
+  --ink-soft: #0a0b0c;
+  --ink-line: #1c1f21;
+  --paper: #ffffff;
+  --accent: #00ffff;
+  --accent-fill: #00ffff;
+  --accent-fill-hover: #66ffff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-line: var(--ink-line);
+  --color-paper: var(--paper);
+  --color-cyan-accent: var(--accent);
+  --color-cyan-fill: var(--accent-fill);
+  --color-cyan-fill-hover: var(--accent-fill-hover);
+  --color-cyan-300: var(--accent-fill-hover);
   --color-cyan-200: #99ffff;
   --color-cyan-100: #ccffff;
   --font-sans: var(--font-onest), system-ui, sans-serif;
@@ -27,8 +76,8 @@ html {
 }
 
 body {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--ink);
+  color: var(--paper);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -53,7 +102,7 @@ h4 {
 }
 
 ::selection {
-  background: var(--color-cyan-accent);
+  background: var(--accent);
   color: #000;
 }
 
@@ -74,11 +123,11 @@ h4 {
   }
 
   .rule {
-    border-top: 1px solid var(--color-ink-line);
+    border-top: 1px solid var(--ink-line);
   }
 
   .hairline {
-    border: 1px solid var(--color-ink-line);
+    border: 1px solid var(--ink-line);
   }
 
   /* Vertical column hairlines on the same module as .shell, as in the reference. */
@@ -99,10 +148,10 @@ h4 {
     content: "";
     display: block;
     height: 100%;
-    border-right: 1px solid var(--color-ink-line);
+    border-right: 1px solid var(--ink-line);
     background-image: linear-gradient(
       to right,
-      var(--color-ink-line) 0 1px,
+      var(--ink-line) 0 1px,
       transparent 1px 100%
     );
     background-size: 33.3333% 100%;
@@ -128,9 +177,8 @@ h4 {
     text-transform: uppercase;
   }
 
-  /* Landing CTAs: slight corner, not a pill. */
   .btn {
-    border-radius: 8px;
+    border-radius: 9999px;
   }
 
   .wordmark {
@@ -140,8 +188,8 @@ h4 {
     font-size: clamp(3.5rem, 15.5vw, 15rem);
     background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.24),
-      rgba(255, 255, 255, 0.045)
+      color-mix(in srgb, var(--paper) 24%, transparent),
+      color-mix(in srgb, var(--paper) 4.5%, transparent)
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -182,12 +230,118 @@ h4 {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
+html[data-resolved="light"] .mark-adapt {
+  filter: brightness(0);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-resolved="dark"]) .mark-adapt {
+    filter: brightness(0);
+  }
+}
+
+.view-rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 35%;
+}
+
+@keyframes icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes icon-dash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes icon-bob {
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes icon-grow {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes icon-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes live-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.icon-spin {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: icon-spin 8s linear infinite;
+}
+
+.icon-dash {
+  stroke-dasharray: 3 5;
+  animation: icon-dash 2.4s linear infinite;
+}
+
+.icon-bob {
+  animation: icon-bob 1.8s ease-in-out infinite;
+}
+
+.icon-grow {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: icon-grow 1.6s ease-in-out infinite;
+}
+
+.icon-grow-delay {
+  animation-delay: 0.2s;
+}
+
+.icon-grow-delay-2 {
+  animation-delay: 0.4s;
+}
+
+.icon-pulse {
+  animation: icon-pulse 1.8s ease-in-out infinite;
+}
+
+.live-ping {
+  animation: live-ping 1.35s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
   .rise,
-  .pulse-dot {
+  .view-rise,
+  .pulse-dot,
+  .icon-spin,
+  .icon-dash,
+  .icon-bob,
+  .icon-grow,
+  .icon-pulse,
+  .live-ping,
+  .screen-swap {
     animation: none;
   }
 }

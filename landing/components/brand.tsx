@@ -19,7 +19,7 @@ export function LogoHorizontal({ className = "h-8 w-auto" }: { className?: strin
       alt="Goulash.tech"
       width={1024}
       height={151}
-      className={className}
+      className={`${className} mark-adapt`}
     />
   );
 }
@@ -32,7 +32,7 @@ export function LogoStacked({ className = "h-16 w-auto" }: { className?: string 
       alt="Goulash.tech"
       width={699}
       height={255}
-      className={className}
+      className={`${className} mark-adapt`}
     />
   );
 }
@@ -49,13 +49,13 @@ export function BrandLogo({
 }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} loading="lazy" decoding="async" className={className} />
+    <img src={src} alt={alt} loading="lazy" decoding="async" className={`${className} mark-adapt`} />
   );
 }
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className="eyebrow flex items-center gap-3 text-white/40">
+    <p className="eyebrow flex items-center gap-3 text-paper/40">
       <span aria-hidden className="h-px w-6 bg-cyan-accent" />
       {children}
     </p>
@@ -80,7 +80,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative ${
+      className={`relative scroll-mt-16 ${
         tight ? "py-14 sm:py-16 lg:py-20" : "py-20 sm:py-28 lg:py-36"
       } ${divider ? "rule" : ""} ${className}`}
     >
@@ -107,13 +107,13 @@ export function SectionHead({
 }) {
   return (
     <header className={`grid12 gap-y-8 ${className}`}>
-      <div className="col-span-12 lg:col-span-6">
+      <div className="col-span-12 lg:col-span-7">
         {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-        <h2 className={`text-h2 leading-[1.05] ${eyebrow ? "mt-7" : ""}`}>{title}</h2>
+        <h2 className={`view-rise text-h2 leading-[1.05] ${eyebrow ? "mt-7" : ""}`}>{title}</h2>
       </div>
       {note && (
         <div
-          className={`col-span-12 space-y-4 text-lede leading-snug text-white/55 lg:col-span-5 lg:col-start-8 ${
+          className={`col-span-12 space-y-4 text-lede leading-snug text-paper/55 lg:col-span-5 lg:col-start-8 ${
             eyebrow ? "lg:pt-11" : ""
           }`}
         >
