@@ -423,9 +423,10 @@ export default function Home() {
           </div>
 
           <div className="grid12 mt-24 gap-y-10 border-t border-ink-line pt-12">
-            <h3 className="col-span-12 text-h3 lg:col-span-4">
-              <span className="block">Результат выше</span>
-              <span className="block">рынка</span>
+            <h3 className="col-span-12 text-h3 leading-snug lg:col-span-4">
+              Результат выше
+              <br />
+              рынка
             </h3>
             <div className="col-span-12 lg:col-span-7 lg:col-start-6">
               <p className="max-w-[54ch] text-lede leading-snug text-paper/60">

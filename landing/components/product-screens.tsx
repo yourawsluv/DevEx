@@ -79,6 +79,16 @@ const ADDONS = ["Соевый соус", "Васаби", "Палочки", "Им
 const FRAME =
   "overflow-hidden border-[8px] border-[color:color-mix(in_srgb,var(--paper)_38%,transparent)] bg-white text-[#1a1d1f]";
 
+function pageTop(el: HTMLElement) {
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node) {
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  return top;
+}
+
 export function ProductScreens() {
   const track = useRef<HTMLDivElement>(null);
   const roleRef = useRef<Role>("restaurant");
@@ -105,7 +115,7 @@ export function ProductScreens() {
     const update = () => {
       frame = 0;
       const header = 56;
-      const start = el.offsetTop - header;
+      const start = pageTop(el) - header;
       const range = Math.max(el.offsetHeight - window.innerHeight, 1);
       const progress = Math.min(1, Math.max(0, (window.scrollY - start) / range));
       const index = Math.min(ROLES.length - 1, Math.floor(progress * ROLES.length));
@@ -133,7 +143,7 @@ export function ProductScreens() {
     const el = track.current;
     if (!el) return;
     const header = 56;
-    const start = el.offsetTop - header;
+    const start = pageTop(el) - header;
     const range = Math.max(el.offsetHeight - window.innerHeight, 1);
     const index = ROLES.findIndex((item) => item.id === next);
     roleRef.current = next;
