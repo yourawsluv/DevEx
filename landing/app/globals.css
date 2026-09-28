@@ -251,37 +251,59 @@ html[data-resolved="light"] .mark-adapt {
   animation-range: entry 0% entry 35%;
 }
 
+@keyframes icon-pop {
+  from {
+    transform: scale(0.72) rotate(-8deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 @keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes icon-dash {
+  from {
+    stroke-dashoffset: 32;
+  }
   to {
-    stroke-dashoffset: -28;
+    stroke-dashoffset: 0;
   }
 }
 
 @keyframes icon-bob {
-  50% {
-    transform: translateY(-1.5px);
+  from {
+    transform: translateY(4px);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 
 @keyframes icon-grow {
-  0%,
-  100% {
-    transform: scaleY(0.45);
+  from {
+    transform: scaleY(0.2);
   }
-  50% {
+  to {
     transform: scaleY(1);
   }
 }
 
 @keyframes icon-pulse {
-  50% {
+  from {
+    transform: scale(0.35);
     opacity: 0.35;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -296,37 +318,64 @@ html[data-resolved="light"] .mark-adapt {
   }
 }
 
+.point-icon svg {
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
 .icon-spin {
   transform-box: view-box;
-  transform-origin: center;
-  animation: icon-spin 8s linear infinite;
+  transform-origin: 16px 16px;
 }
 
 .icon-dash {
-  stroke-dasharray: 3 5;
-  animation: icon-dash 2.4s linear infinite;
-}
-
-.icon-bob {
-  animation: icon-bob 1.8s ease-in-out infinite;
+  stroke-dasharray: 32;
 }
 
 .icon-grow {
   transform-box: fill-box;
   transform-origin: center bottom;
-  animation: icon-grow 1.6s ease-in-out infinite;
 }
 
 .icon-grow-delay {
-  animation-delay: 0.2s;
+  animation-delay: 0.12s;
 }
 
 .icon-grow-delay-2 {
-  animation-delay: 0.4s;
+  animation-delay: 0.24s;
 }
 
-.icon-pulse {
-  animation: icon-pulse 1.8s ease-in-out infinite;
+/* Play once when the pointer enters the card, and again on the next entry. */
+.point-block:hover .point-icon svg {
+  animation: icon-pop 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+
+.point-block:hover .icon-spin {
+  animation: icon-spin 0.9s linear 1;
+}
+
+.point-block:hover .icon-dash {
+  animation: icon-dash 0.8s ease-out 1;
+}
+
+.point-block:hover .icon-bob {
+  animation: icon-bob 0.55s ease-out 1;
+}
+
+.point-block:hover .icon-grow {
+  animation: icon-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+
+.point-block:hover .icon-grow-delay {
+  animation-delay: 0.12s;
+}
+
+.point-block:hover .icon-grow-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.point-block:hover .icon-pulse {
+  animation: icon-pulse 0.55s ease-out 1;
 }
 
 .live-ping {
