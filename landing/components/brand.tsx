@@ -2,37 +2,60 @@ export function LogoMark({ className = "size-8" }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/brand/logo-mark.png"
+      src="/brand/logo-mark-tile.png"
       alt="Goulash.tech"
-      width={32}
-      height={32}
+      width={255}
+      height={255}
       className={className}
     />
   );
 }
 
+function LogoLockup({
+  word,
+  className,
+  markWidth,
+  wordWidth,
+}: {
+  word: string;
+  className: string;
+  markWidth: number;
+  wordWidth: number;
+}) {
+  return (
+    <span className={`inline-flex items-center ${className}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/brand/logo-mark-tile.png" alt="" width={255} height={255} className="h-full w-auto" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={word}
+        alt="Goulash.tech"
+        width={wordWidth}
+        height={markWidth}
+        className="mark-adapt h-full w-auto"
+      />
+    </span>
+  );
+}
+
 export function LogoHorizontal({ className = "h-8 w-auto" }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/brand/logo-horizontal.png"
-      alt="Goulash.tech"
-      width={1024}
-      height={151}
-      className={`${className} mark-adapt`}
+    <LogoLockup
+      word="/brand/logo-word-horizontal.png"
+      className={className}
+      markWidth={151}
+      wordWidth={872}
     />
   );
 }
 
 export function LogoStacked({ className = "h-16 w-auto" }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/brand/logo-stacked.png"
-      alt="Goulash.tech"
-      width={699}
-      height={255}
-      className={`${className} mark-adapt`}
+    <LogoLockup
+      word="/brand/logo-word-stacked.png"
+      className={className}
+      markWidth={255}
+      wordWidth={444}
     />
   );
 }
