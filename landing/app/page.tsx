@@ -630,14 +630,7 @@ export default function Home() {
           />
 
           <figure className="mt-16 sm:mt-20">
-            <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
-              <div className="min-w-[640px] sm:min-w-0">
-                <RussiaMap />
-              </div>
-            </div>
-            <figcaption className="mt-4 text-xs text-paper/40 sm:hidden">
-              Карту можно прокрутить в сторону
-            </figcaption>
+            <RussiaMap />
           </figure>
 
           <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-ink-line pt-10 sm:grid-cols-3 lg:mt-16 lg:grid-cols-6">

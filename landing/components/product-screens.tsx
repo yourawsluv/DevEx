@@ -154,7 +154,7 @@ export function ProductScreens() {
   return (
     <div ref={track} className="relative h-[300svh]">
       <div className="sticky top-14 z-20 flex h-[calc(100svh-3.5rem)] flex-col">
-        <div className="flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-4">
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-0 py-1 max-sm:[container-type:size] sm:px-4 sm:py-3">
           <div
             className={`flex h-full min-h-0 w-full items-center justify-center gap-8 ${
               role === "restaurant" ? "flex-col" : role === "courier" ? "flex-row" : "flex-row-reverse"
@@ -166,7 +166,9 @@ export function ProductScreens() {
             >
               <MorphSwap variant="glide" text={CAPTION[role]} />
             </p>
-            <div key={role} className={`screen-swap min-h-0 @container ${frameClass(role)} ${FRAME}`}>
+            <div key={role} className={`screen-swap ${frameSlot(role)}`}>
+            <div className={frameScale(role)}>
+            <div className={`@container h-full w-full ${FRAME}`}>
             {role === "restaurant" && (
               <RestaurantScreen
                 section={section}
@@ -220,6 +222,8 @@ export function ProductScreens() {
               />
             )}
             </div>
+            </div>
+            </div>
           </div>
         </div>
 
@@ -252,11 +256,20 @@ export function ProductScreens() {
   );
 }
 
-function frameClass(role: Role) {
+/** Largest 16:10 or 9:19.5 box on a phone; desktop width stays height-capped. */
+function frameSlot(role: Role) {
   if (role === "restaurant") {
-    return "aspect-[16/10] w-[min(100%,calc((100svh-17.5rem)*1.6))] max-w-full";
+    return "relative mx-auto max-sm:aspect-[16/10] max-sm:w-[min(100cqw,calc(100cqh*1.6))] max-sm:max-h-full max-sm:overflow-hidden max-sm:[container-type:size] sm:aspect-[16/10] sm:w-[min(100%,calc((100svh-17.5rem)*1.6))] sm:max-w-full";
   }
-  return "aspect-[9/19.5] w-[min(calc((100svh-17.5rem)*0.4615),100%)] sm:w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-24rem))]";
+  return "relative mx-auto max-sm:aspect-[9/19.5] max-sm:w-[min(100cqw,calc(100cqh*9/19.5))] max-sm:max-h-full max-sm:overflow-hidden max-sm:[container-type:size] sm:aspect-[9/19.5] sm:w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-24rem))]";
+}
+
+/** Phone UI is painted at desktop density, then scaled into the slot. */
+function frameScale(role: Role) {
+  if (role === "restaurant") {
+    return "max-sm:absolute max-sm:top-0 max-sm:left-0 max-sm:h-[600px] max-sm:w-[960px] max-sm:origin-top-left max-sm:[transform:scale(calc(100cqw/960px))] sm:h-full sm:w-full";
+  }
+  return "max-sm:absolute max-sm:top-0 max-sm:left-0 max-sm:h-[867px] max-sm:w-[400px] max-sm:origin-top-left max-sm:[transform:scale(calc(100cqw/400px))] sm:h-full sm:w-full";
 }
 
 function LiveDot() {
