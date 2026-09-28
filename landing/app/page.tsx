@@ -8,6 +8,7 @@ import {
 } from "@/components/brand";
 import { Faq } from "@/components/faq";
 import { LeadForm } from "@/components/lead-form";
+import { CountUp } from "@/components/count-up";
 import { MorphCycle } from "@/components/motion-text";
 import { PointIcon, type PointIconName } from "@/components/point-icons";
 import { ProductScreens } from "@/components/product-screens";
@@ -312,7 +313,9 @@ export default function Home() {
 
             <div className="grid12 mt-14 sm:mt-20 lg:mt-24">
               <h1 className="col-span-12 font-medium leading-[0.98] tracking-[-0.035em] text-[clamp(1.45rem,4.35vw,4.35rem)]">
-                <span className="block whitespace-nowrap">+3 млн ₽ дополнительной</span>
+                <span className="block whitespace-nowrap">
+                  <CountUp value="+3" className="nums" /> млн ₽ дополнительной
+                </span>
                 <span className="block whitespace-nowrap">
                   выручки в год на точку
                   <span aria-hidden className="align-top text-[0.45em] text-cyan-accent">
@@ -367,7 +370,9 @@ export default function Home() {
                 key={fact.value}
                 className={`col-span-6 sm:col-span-4 lg:col-span-4 ${CELL} ${COL_RULE} lg:[&:nth-child(3n+1)]:border-l-0 lg:[&:nth-child(3n+1)]:pl-0`}
               >
-                <dt className="figure text-figure text-cyan-accent">{fact.value}</dt>
+                <dt className="figure text-figure text-cyan-accent">
+                  <CountUp value={fact.value} />
+                </dt>
                 <dd className="mt-4 max-w-[24ch] text-sm leading-snug text-paper/45">
                   {fact.unit}
                 </dd>
@@ -407,7 +412,9 @@ export default function Home() {
                 <p className="min-h-[2.75rem] max-w-[26ch] text-sm leading-snug text-paper/40">
                   {block.kicker}
                 </p>
-                <p className="figure mt-6 text-figure text-cyan-accent">{block.value}</p>
+                <p className="figure mt-6 text-figure text-cyan-accent">
+                  <CountUp value={block.value} />
+                </p>
                 <p className="mt-3 text-paper/70">{block.unit}</p>
                 <ul className="mt-8 space-y-3 border-t border-ink-line pt-6">
                   {block.items.map((item) => (
@@ -451,7 +458,7 @@ export default function Home() {
                     item.accent ? "text-cyan-accent" : "text-paper/70"
                   }`}
                 >
-                  {item.value}
+                  <CountUp value={item.value} />
                 </dt>
                 <dd className="mt-4 max-w-[22ch] text-sm leading-snug text-paper/45">
                   {item.unit}
@@ -540,7 +547,9 @@ export default function Home() {
                 key={item.title}
                 className={`col-span-12 sm:col-span-6 lg:col-span-4 ${CELL} ${COL_RULE} lg:first:border-l-0 lg:first:pl-0`}
               >
-                <dt className="figure text-figure text-cyan-accent">{item.delta}</dt>
+                <dt className="figure text-figure text-cyan-accent">
+                  <CountUp value={item.delta} />
+                </dt>
                 <dd className="mt-5">
                   <p className="min-h-[2.75rem] max-w-[20ch] text-sm leading-snug">
                     {item.title}
@@ -583,7 +592,7 @@ export default function Home() {
                 </div>
                 {item.result && (
                   <p className="figure mt-8 text-figure-sm text-cyan-accent">
-                    {item.result}
+                    <CountUp value={item.result!} />
                     <span className="ml-2 align-middle text-sm font-normal tracking-normal text-paper/45">
                       {item.resultUnit}
                     </span>
@@ -689,7 +698,9 @@ export default function Home() {
               >
                 <dt className="eyebrow text-paper/35">{item.title}</dt>
                 <dd>
-                  <p className="figure mt-8 text-figure">{item.value}</p>
+                  <p className="figure mt-8 text-figure">
+                    <CountUp value={item.value} />
+                  </p>
                   <p className="mt-5 max-w-[30ch] text-sm leading-relaxed text-paper/50">
                     {item.text}
                   </p>
