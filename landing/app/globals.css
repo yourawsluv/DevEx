@@ -221,13 +221,6 @@ h4 {
   animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Torph keeps each line nowrap. Side captions must stay inside their column. */
-[data-demo-caption] [data-torph] > span {
-  display: block !important;
-  max-width: 100%;
-  white-space: normal !important;
-}
-
 @keyframes pulse-dot {
   0%,
   100% {
