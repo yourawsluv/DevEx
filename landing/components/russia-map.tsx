@@ -13,7 +13,9 @@ function tagVenuePins(svg: string) {
   let index = 0;
   return svg.replace(PIN, (path) => {
     const i = rank.get(index++) ?? 0;
-    return path.replace("<path ", `<path class="venue-pin" style="--i:${i}" `);
+    return path
+      .replace("<path ", `<path class="venue-pin" style="--i:${i}" `)
+      .replace('fill="#00FFFF"', 'fill="currentColor"');
   });
 }
 

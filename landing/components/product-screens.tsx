@@ -154,23 +154,21 @@ export function ProductScreens() {
   return (
     <div ref={track} className="relative h-[300svh]">
       <div className="sticky top-14 z-20 flex h-[calc(100svh-3.5rem)] flex-col">
-        <div className="flex min-h-0 flex-1 items-center justify-center px-3 py-3 sm:px-4">
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-0 py-1 max-sm:[container-type:size] sm:px-4 sm:py-3">
           <div
-            className={`flex h-full min-h-0 w-full items-center justify-center gap-3 sm:gap-8 ${
+            className={`flex h-full min-h-0 w-full items-center justify-center gap-8 ${
               role === "restaurant" ? "flex-col" : role === "courier" ? "flex-row" : "flex-row-reverse"
             }`}
           >
             <p
               data-demo-caption
-              className={`shrink-0 text-lg font-medium leading-snug text-paper sm:text-2xl ${
-                role === "restaurant"
-                  ? "max-w-[16rem] text-center"
-                  : "w-[6.5rem] sm:w-52"
-              }`}
+              className="hidden shrink-0 whitespace-nowrap text-center text-2xl font-medium leading-snug text-paper sm:block"
             >
-              <MorphSwap variant="glide" className="block whitespace-normal" text={CAPTION[role]} />
+              <MorphSwap variant="glide" text={CAPTION[role]} />
             </p>
-            <div key={role} className={`screen-swap min-h-0 @container ${frameClass(role)} ${FRAME}`}>
+            <div key={role} className={`screen-swap ${frameSlot(role)}`}>
+            <div className={frameScale(role)}>
+            <div className={`@container h-full w-full ${FRAME}`}>
             {role === "restaurant" && (
               <RestaurantScreen
                 section={section}
@@ -224,10 +222,18 @@ export function ProductScreens() {
               />
             )}
             </div>
+            </div>
+            </div>
           </div>
         </div>
 
-        <div className="flex shrink-0 justify-center px-4 pb-[4.75rem] sm:pb-5">
+        <p
+          data-demo-caption
+          className="shrink-0 whitespace-nowrap px-4 pb-3 text-center text-lg font-medium leading-snug text-paper sm:hidden"
+        >
+          <MorphSwap variant="glide" text={CAPTION[role]} />
+        </p>
+        <div className="flex shrink-0 justify-center px-4 pb-5">
           <div role="tablist" aria-label="Экран продукта" className="flex rounded-full border border-ink-line bg-paper/10 p-1.5 backdrop-blur">
             {ROLES.map((item) => (
               <button
@@ -250,18 +256,27 @@ export function ProductScreens() {
   );
 }
 
-function frameClass(role: Role) {
+/** Largest 16:10 or 9:19.5 box on a phone; desktop width stays height-capped. */
+function frameSlot(role: Role) {
   if (role === "restaurant") {
-    return "aspect-[16/10] w-[min(100%,calc((100svh-17.5rem)*1.6))] max-w-full";
+    return "relative mx-auto max-sm:aspect-[16/10] max-sm:w-[min(100cqw,calc(100cqh*1.6))] max-sm:max-h-full max-sm:overflow-hidden max-sm:[container-type:size] sm:aspect-[16/10] sm:w-[min(100%,calc((100svh-17.5rem)*1.6))] sm:max-w-full";
   }
-  return "aspect-[9/19.5] w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-8.25rem))]";
+  return "relative mx-auto max-sm:aspect-[9/19.5] max-sm:w-[min(100cqw,calc(100cqh*9/19.5))] max-sm:max-h-full max-sm:overflow-hidden max-sm:[container-type:size] sm:aspect-[9/19.5] sm:w-[min(calc((100svh-17.5rem)*0.4615),calc(100%-24rem))]";
+}
+
+/** Phone UI is painted at desktop density, then scaled into the slot. */
+function frameScale(role: Role) {
+  if (role === "restaurant") {
+    return "max-sm:absolute max-sm:top-0 max-sm:left-0 max-sm:h-[600px] max-sm:w-[960px] max-sm:origin-top-left max-sm:[transform:scale(calc(100cqw/960px))] sm:h-full sm:w-full";
+  }
+  return "max-sm:absolute max-sm:top-0 max-sm:left-0 max-sm:h-[867px] max-sm:w-[400px] max-sm:origin-top-left max-sm:[transform:scale(calc(100cqw/400px))] sm:h-full sm:w-full";
 }
 
 function LiveDot() {
   return (
     <span className="relative inline-flex size-2.5 shrink-0" aria-hidden>
-      <span className="live-ping absolute inset-0 rounded-full bg-[#00b7b7]" />
-      <span className="relative size-2.5 rounded-full bg-[#00d6d6]" />
+      <span className="live-ping absolute inset-0 rounded-full bg-current" />
+      <span className="relative size-2.5 rounded-full bg-current" />
     </span>
   );
 }
@@ -438,7 +453,7 @@ function OrdersPanel({
             onClick={() => onFilter(item)}
             aria-pressed={filter === item}
             className={`rounded-full px-2.5 py-1 text-xs ${
-              filter === item ? "bg-[#00ffff] font-medium text-black" : "bg-white text-black/60"
+              filter === item ? "bg-[#111] font-medium text-white" : "bg-white text-black/60"
             }`}
           >
             {item}
@@ -459,12 +474,12 @@ function OrdersPanel({
               onClick={() => onSelect(order.id)}
               aria-pressed={selected}
               className={`rounded-xl border bg-white p-2 text-left ${
-                selected ? "border-[#00c2c2] ring-2 ring-[#00ffff]/50" : "border-black/10"
+                selected ? "border-[#111] ring-2 ring-black/10" : "border-black/10"
               }`}
             >
               <p className="text-sm font-medium tnum">№{order.id}</p>
               <p className="mt-0.5 text-[11px] text-black/45">{order.wait}</p>
-              <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-[#0a7a72]">
+              <p className="mt-1.5 flex items-center gap-1.5 text-[11px] font-medium text-black/70">
                 {cooking && <LiveDot />}
                 {status}
               </p>
@@ -481,7 +496,7 @@ function LiveOrder() {
     <div className="mt-2 flex items-center gap-2 rounded-full bg-[#111] px-3 py-1.5 text-white">
       <LiveDot />
       <span className="text-[11px] tnum">№0002</span>
-      <span className="text-[11px] text-[#c8fffb]">готовится</span>
+      <span className="text-[11px] text-white/75">готовится</span>
       <MorphCycle
         variant="numbers"
         lines={PREP_TIMES}
@@ -513,7 +528,7 @@ function ForcePanel() {
         type="button"
         onClick={() => setExtra((value) => !value)}
         className={`w-full rounded-full px-3 py-2 text-xs font-medium ${
-          extra ? "bg-[#00ffff] text-black" : "bg-white text-black"
+          extra ? "bg-[#111] text-white" : "bg-white text-black"
         }`}
       >
         {extra ? "ETA +15 мин включено" : "+15 минут к ETA"}
@@ -564,7 +579,7 @@ function MoneyPanel({ kind }: { kind: "in" | "out" }) {
       {rows.map(([label, value]) => (
         <li key={label} className="flex items-center justify-between rounded-xl bg-white px-3 py-2 text-sm">
           <span>{label}</span>
-          <span className={`tnum ${kind === "in" ? "text-[#0a7a72]" : "text-[#9a3b3b]"}`}>{value}</span>
+          <span className={`tnum ${kind === "in" ? "text-black" : "text-[#9a3b3b]"}`}>{value}</span>
         </li>
       ))}
     </ul>
@@ -587,7 +602,7 @@ function CheckPanel() {
               }
               className="flex w-full items-center gap-2 rounded-xl bg-white px-3 py-2 text-left text-sm"
             >
-              <span className={`size-3.5 rounded-full border ${on ? "border-[#00b7b7] bg-[#00ffff]" : "border-black/20"}`} />
+              <span className={`size-3.5 rounded-full border ${on ? "border-[#111] bg-[#111]" : "border-black/20"}`} />
               <span className={on ? "text-black/40 line-through" : ""}>{item}</span>
             </button>
           </li>
@@ -658,7 +673,7 @@ function CourierScreen({
                 onClick={() => onSelect(item.id)}
                 aria-pressed={on}
                 className={`w-full rounded-2xl border px-3 py-2.5 text-left ${
-                  on ? "border-[#00c2c2] bg-[#f3fffe]" : "border-black/10"
+                  on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
                 }`}
               >
                 <p className="flex items-center justify-between gap-2 text-sm font-medium">
@@ -770,7 +785,7 @@ function CartView({
               onClick={() => onToggleAddon(item)}
               aria-pressed={on}
               className={`rounded-full border px-2.5 py-1 text-[11px] ${
-                on ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+                on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
               }`}
             >
               {item}
@@ -778,7 +793,7 @@ function CartView({
           );
         })}
       </div>
-      <button type="button" onClick={() => onView("product")} className="mt-3 text-xs font-medium text-[#0a7a72]">
+      <button type="button" onClick={() => onView("product")} className="mt-3 text-xs font-medium text-black">
         Эби Спайси · 269 ₽
       </button>
       <button
@@ -820,7 +835,7 @@ function ProductView({
               onClick={() => onToggleMod(item)}
               aria-pressed={on}
               className={`rounded-full border px-2.5 py-1 text-[11px] ${
-                on ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+                on ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
               }`}
             >
               {item}
@@ -863,7 +878,7 @@ function CheckoutView({
         onClick={onToggleBonuses}
         aria-pressed={spendBonuses}
         className={`mt-3 w-full rounded-2xl border px-3 py-2 text-left text-xs ${
-          spendBonuses ? "border-[#00c2c2] bg-[#e7fffd]" : "border-black/10"
+          spendBonuses ? "border-[#111] bg-[#f4f6f8]" : "border-black/10"
         }`}
       >
         {spendBonuses ? "Бонусы списываются" : "Не списывать бонусы"}

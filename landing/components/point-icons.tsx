@@ -19,7 +19,7 @@ const stroke = {
 
 export function PointIcon({ name }: { name: PointIconName }) {
   return (
-    <span className="point-icon grid size-16 shrink-0 place-items-center text-cyan-accent" aria-hidden>
+    <span className="point-icon grid size-16 shrink-0 place-items-center text-paper" aria-hidden>
       <svg viewBox="0 0 32 32" className="size-14 overflow-visible">
         {name === "scale" && <ScaleIcon />}
         {name === "break" && <BreakIcon />}

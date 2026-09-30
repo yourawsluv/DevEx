@@ -79,7 +79,7 @@ export function BrandLogo({
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p className="eyebrow flex items-center gap-3 text-paper/40">
-      <span aria-hidden className="h-px w-6 bg-cyan-accent" />
+      <span aria-hidden className="h-px w-6 bg-paper/40" />
       {children}
     </p>
   );
